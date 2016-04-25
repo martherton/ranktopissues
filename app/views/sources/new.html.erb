@@ -1,0 +1,19 @@
+<div class="newsingle" >
+
+
+
+
+<%= simple_form_for [@issue, @sourcenew] do |f| %>
+	<%= f.input :sourceurl, label: false, placeholder: "Add a source url" %>
+	<%= f.input :extradescription, label: false, placeholder: "Extra description if necessary" %>
+	<%= f.input :qualityofsource, collection: 1..10, label: false, placeholder: "Quality 1-low, 10 highest" %>
+	<%= f.association :issuecats, label: "Select categories this source additionally applies to", label_method: :issuecatname, value_method: :id, include_blank: false, as: :check_boxes,collection: @subcat %>
+
+	<%= f.hidden_field :user_id, :value => current_user.id %>
+
+  <%= f.button :submit, 'Add your source' %>
+
+
+<% end %>
+
+</div>

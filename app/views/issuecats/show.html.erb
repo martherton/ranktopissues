@@ -1,0 +1,86 @@
+﻿<div class="newsingle">
+<h6 id="linkbackissues"><%= link_to "ALL LISTS", issuecats_path %></h6>
+<h3><%= @category.issuecatname %>&nbsp:&nbsp<%= @subcat.issuecatname %></h3>
+<br>
+<h4>Live Issues</h4>
+<br>
+<div class="CSSTableGenerator">
+<table>
+
+<tr>
+<td>Issue</td>
+<td>Votes</td>
+<td>Comments</td>
+<td>List Membership</td>
+</tr>
+
+
+
+
+<% @issues.each do |issue| %>
+
+<% if issue.archive %>
+<% else %>
+
+<tr>
+<td><%= link_to issue.issuetitle, issue_path(issue.id)%></td>
+
+				<% @voted = Vote.where("issue_id = ? AND user_id = ?", issue.id, current_user.id) %>
+				
+				<td>
+			
+			
+				<%= pluralize(issue.votes.size, 'vote') %>
+				<% if @voted.blank?%>
+				<%= link_to "[Vote]", issue_votes_path(issue), method: :post %>	
+				<% else %>
+				<% end %>
+				</td>
+			
+				<td><%= link_to pluralize(issue.comments.size,'comment'), issue_path(issue) %>	</td>
+				<td><% @issuecats = issue.issuecats %><% @issuecats.each do |issuecat| %><%= link_to issuecat.issuecatname, issuecat_path(issuecat.id)%>,&nbsp<% end %></td>
+				</tr>
+			
+			<% end %>
+	
+<% end %>
+
+</table>
+</div>
+<p></p>
+<h4>Archived Issues</h4>
+<br>
+<div class="CSSTableGenerator">
+
+<table>
+<tr>
+<td>Issue</td>
+<td>Votes</td>
+<td>Comments</td>
+<td>List membership</td>
+</tr>
+<% @issues.each do |issue| %>
+<% if issue.archive %>
+
+<tr>
+<td><%= link_to issue.issuetitle, issue_path(issue.id)%></td>
+
+				
+				<td>
+				
+			
+			
+				<%= pluralize(issue.votes.size, 'vote') %></td>
+			
+				<td><%= link_to pluralize(issue.comments.size,'comment'), issue_path(issue) %>	</td>
+				<td><% @issuecats = issue.issuecats %><% @issuecats.each do |issuecat| %><%= link_to issuecat.issuecatname, issuecat_path(issuecat.id)%>,&nbsp<% end %></td>
+			</tr>
+		<% else %>
+
+			<% end %>
+			
+<% end %>
+
+</table>
+</div>
+</div>

@@ -1,0 +1,2 @@
+module IssuecatsHelper
+end

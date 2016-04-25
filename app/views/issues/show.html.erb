@@ -1,0 +1,65 @@
+<div class="newsingle">
+	<div class="issue">
+	<h6 id="linkbackissues"><b><%= link_to "BACK TO LIST", issuecat_path(@issue.subcategory) %> </b></h6>
+  <h3><%= @issue.issuetitle %></h3>
+  <h6><i><%= @issue.issuedescription %></i></h6>
+  <h5>HOUSE VIEW</h5><h6><%= @issue.issueofficialview %></h6>
+  </div>
+  <div class="supplemental">
+  <sub><% @voted = Vote.where("issue_id = ? AND user_id = ?", @issue.id, current_user.id) %>
+				
+  <% if current_user.admin? %>
+
+			<%= link_to "Edit", edit_issue_path(params[:id]) %>&nbsp
+			<%= link_to "Add Sources", new_issue_source_path(params[:id]) %>&nbsp
+  <% else %>
+  <% end %>
+  		<% if @voted.blank? %>
+  <%= link_to "[Vote]", issue_votes_path(@issue.id), method: :post %>	
+
+			<%else %>
+			<% end %>
+			<%= pluralize(@issue.votes.size, 'upvote') %></sub>
+			</div>
+			<div class="sources">
+			<h5>SOURCED NEWS STORIES OR DOCUMENTS</h5>
+			<div class="CSSTableGenerator">
+			<table>
+			<tr>
+			<td>Link</td>
+			<td>Description</td>
+			<td>Quality</td>
+			<td>Other Categories</td>
+			</tr>
+			<% @sources.each do |source| %>
+			<tr>
+			<td><%= link_to "External Source", source.sourceurl, target: '_blank' %></td>
+			<td><%= source.extradescription %></td>
+			<td><%= source.qualityofsource %></td>
+			<td><% @issuecats = source.issuecats %><% @issuecats.each do |issuecat| %><%= link_to issuecat.issuecatname, issuecat_path(issuecat.id)%><% end %></td>
+			</tr>
+			
+			<% end %>
+			</table>
+			</div>
+			</div>
+			<div class="addcomment">
+			<div class="addcomment1">
+			<%= render "comments/new" %>
+			</div>
+			</div>
+				
+				<% @comments.each do |comment| %>
+					<div class="commentary">
+					<h5><%= comment.commentbody %></h5>
+					</div>
+					<div class="authorship">
+					<h6>Author&nbsp:&nbsp<%= User.find(comment.user_id).name %>&nbsp
+
+					Created&nbsp:&nbsp<%= comment.created_at.to_formatted_s(:short) %></h6>
+					</div>
+
+				<% end %>
+			
+				
+</div>

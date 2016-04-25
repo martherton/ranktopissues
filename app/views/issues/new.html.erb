@@ -1,0 +1,27 @@
+<div class="newsingle" >
+
+<h2>New Issue</h2>
+ 
+ 
+<%= simple_form_for @issue do |f| %>
+	
+	<%= f.input :category, label: false, collection: @category, value_method: :id, label_method: :issuecatname, label: false, prompt: "Main category" %>
+	<%= f.input :subcategory, label: false, collection: @subcat, value_method: :id, label_method: :issuecatname, label: false, prompt: "Sub category" %>
+	
+
+  <%= f.input :issuetitle, label: false, placeholder: "Title" %>
+
+
+  <%= f.input :issuedescription, label: false, placeholder: "description" %>
+
+  <%= f.input :issueofficialview, label: false, placeholder: "official view" %>
+
+  <%= f.input :officialoverride, label: "House override?" %>
+
+  <%= f.association :issuecats, label: "Select categories this issue applies to", label_method: :issuecatname, value_method: :id, include_blank: false, as: :check_boxes,collection: @subcatex %>
+
+
+  <%= f.button :submit, 'Add new issue' %>
+
+<% end %>
+</div>

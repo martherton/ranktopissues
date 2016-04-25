@@ -11,7 +11,58 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160409164153) do
+ActiveRecord::Schema.define(version: 20160411112852) do
+
+  create_table "comments", force: :cascade do |t|
+    t.integer  "issue_id"
+    t.integer  "user_id"
+    t.text     "commentbody"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  create_table "issuecats", force: :cascade do |t|
+    t.string   "issuecatname"
+    t.boolean  "issubcat"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.integer  "user_id"
+    t.integer  "maincat_id"
+  end
+
+  create_table "issuecats_issues", force: :cascade do |t|
+    t.integer "issuecat_id"
+    t.integer "issue_id"
+  end
+
+  create_table "issuecats_sources", force: :cascade do |t|
+    t.integer "issuecat_id"
+    t.integer "source_id"
+  end
+
+  create_table "issues", force: :cascade do |t|
+    t.string   "issuetitle"
+    t.integer  "category"
+    t.text     "issuedescription"
+    t.text     "issueofficialview"
+    t.integer  "user_id"
+    t.boolean  "officialoverride"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+    t.integer  "subcategory"
+    t.boolean  "archive"
+    t.integer  "votes_count"
+  end
+
+  create_table "sources", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "issue_id"
+    t.string   "sourceurl"
+    t.text     "extradescription"
+    t.string   "qualityofsource"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -32,5 +83,12 @@ ActiveRecord::Schema.define(version: 20160409164153) do
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+
+  create_table "votes", force: :cascade do |t|
+    t.integer  "issue_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer  "user_id"
+  end
 
 end

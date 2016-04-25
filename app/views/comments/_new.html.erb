@@ -1,0 +1,13 @@
+﻿<div class="newopen" >
+
+
+
+<% @commentnew = @issue.comments.new %>
+<%= simple_form_for [@issue, @commentnew] do |f| %>
+	<%= f.input :commentbody, label: false, placeholder: "Add a comment" %>
+	<%= f.hidden_field :user_id, :value => current_user.id %>
+
+  <%= f.button :submit, 'Add your comment' %>
+
+<% end %>
+</div>

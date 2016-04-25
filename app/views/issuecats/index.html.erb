@@ -1,0 +1,13 @@
+<div class="newindex">
+<h2>Current Issue Lists</h2>
+<% @lists.each do |list| %>
+<h3><%= list.issuecatname %></h3>
+<% @subcats.each do |sub| %>
+<% if sub.maincat_id == list.id %>
+<li><h4><%= link_to sub.issuecatname, issuecat_path(sub.id) %></h4></li>
+<% else %><% end %>
+
+<% end %>
+<% end %>
+
+</div>

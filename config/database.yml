@@ -23,6 +23,7 @@ test:
 production:
   adapter: postgresql
   encoding: unicode
+  database: rtidb
   pool: 5
   username: <%= ENV['POSTGRES_USERNAME'] %>
   password: <%= ENV['POSTGRES_PASSWORD'] %>

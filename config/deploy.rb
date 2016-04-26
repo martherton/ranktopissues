@@ -1,5 +1,5 @@
 # Change these
-server '139.59.171.74', port: 22, roles: [:web, :app, :db], primary: true
+server '139.59.160234', port: 3273, roles: [:web, :app, :db], primary: true
 
 set :repo_url,        'git@github.com:martherton/ranktopissues.git'
 set :application,     'ranktopissues'

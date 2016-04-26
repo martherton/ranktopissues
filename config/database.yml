@@ -24,6 +24,9 @@ production:
   adapter: postgresql
   encoding: unicode
   database: rtidb
-  pool: 5
+  pool: 10
   username: <%= ENV['POSTGRES_USERNAME'] %>
   password: <%= ENV['POSTGRES_PASSWORD'] %>
+  host: 139.59.160.234
+  port: <%= ENV['PG_PORT'] %>
+  

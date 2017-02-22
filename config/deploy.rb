@@ -1,84 +1,56 @@
 # Change these
-server '46.101.40.24', port: 22, roles: [:web, :app, :db], primary: true
+set :application, 'ranktopissues'
 
-set :repo_url,        'git@github.com:martherton/ranktopissues.git'
-set :application,     'ranktopissues'
-set :user,            'martherton'
-set :puma_threads,    [4, 16]
-set :puma_workers,    0
+set :repo_url, "git@github.com:ranktopissues.git"
 
-# Don't change these unless you know what you're doing
-set :pty,             true
-set :use_sudo,        false
-set :stage,           :production
-set :deploy_via,      :remote_cache
-set :deploy_to,       "/home/#{fetch(:user)}/apps/#{fetch(:application)}"
-set :puma_bind,       "unix://#{shared_path}/tmp/sockets/#{fetch(:application)}-puma.sock"
-set :puma_state,      "#{shared_path}/tmp/pids/puma.state"
-set :puma_pid,        "#{shared_path}/tmp/pids/puma.pid"
-set :puma_access_log, "#{release_path}/log/puma.error.log"
-set :puma_error_log,  "#{release_path}/log/puma.access.log"
-set :ssh_options,     { forward_agent: true, user: fetch(:user), keys: %w(~/.ssh/id_rsa.pub) }
-set :puma_preload_app, true
-set :puma_worker_timeout, nil
-set :puma_init_active_record, true  # Change to false when not using ActiveRecord
+set :deploy_to, '/var/www/ranktopissues'
 
-## Defaults:
-# set :scm,           :git
-# set :branch,        :master
-# set :format,        :pretty
-# set :log_level,     :debug
-# set :keep_releases, 5
+set :unicorn_pid, "#{deploy_to}/shared/pids/unicorn.pid"
 
-## Linked Files & Directories (Default None):
-# set :linked_files, %w{config/database.yml}
-# set :linked_dirs,  %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}
+set :unicorn_config, "#{current_path}/config/unicorn.rb"
 
-namespace :puma do
-  desc 'Create Directories for Puma Pids and Socket'
-  task :make_dirs do
+set :unicorn_binary, "unicorn"
+
+append :linked_files, 'config/database.yml', 'config/secrets.yml'
+
+append :linked_dirs, 'log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'public/system'
+
+namespace :unicorn do
+  desc 'Stop Unicorn'
+  task :stop do
     on roles(:app) do
-      execute "mkdir #{shared_path}/tmp/sockets -p"
-      execute "mkdir #{shared_path}/tmp/pids -p"
-    end
-  end
-
-  before :start, :make_dirs
-end
-
-namespace :deploy do
-  desc "Make sure local git is in sync with remote."
-  task :check_revision do
-    on roles(:app) do
-      unless `git rev-parse HEAD` == `git rev-parse origin/master`
-        puts "WARNING: HEAD is not the same as origin/master"
-        puts "Run `git push` to sync changes."
-        exit
+      if test("[ -f #{fetch(:unicorn_pid)} ]")
+        execute :kill, capture(:cat, fetch(:unicorn_pid))
       end
     end
   end
 
-  desc 'Initial Deploy'
-  task :initial do
+  desc 'Start Unicorn'
+  task :start do
     on roles(:app) do
-      before 'deploy:restart', 'puma:start'
-      invoke 'deploy'
+      within current_path do
+        with rails_env: fetch(:rails_env) do
+          execute :bundle, "exec unicorn -c #{fetch(:unicorn_config)} -D"
+        end
+      end
     end
   end
 
-  desc 'Restart application'
-  task :restart do
-    on roles(:app), in: :sequence, wait: 5 do
-      invoke 'puma:restart'
+  desc 'Reload Unicorn without killing master process'
+  task :reload do
+    on roles(:app) do
+      if test("[ -f #{fetch(:unicorn_pid)} ]")
+        execute :kill, '-s USR2', capture(:cat, fetch(:unicorn_pid))
+      else
+        error 'Unicorn process not running'
+      end
     end
   end
 
-  before :starting,     :check_revision
-  after  :finishing,    :compile_assets
-  after  :finishing,    :cleanup
-  after  :finishing,    :restart
+  desc 'Restart Unicorn'
+  task :restart
+  before :restart, :stop
+  before :restart, :start
 end
 
-# ps aux | grep puma    # Get puma pid
-# kill -s SIGUSR2 pid   # Restart puma
-# kill -s SIGTERM pid   # Stop puma
+after "deploy:cleanup", "unicorn:restart"

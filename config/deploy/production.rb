@@ -1,3 +1,10 @@
+set stage: :production
+
+server '178.62.13.108', user: 'martherton', roles: %w{web app db}
+
+set :rbenv_ruby, '2.2.4'
+
+set :rbenv_type, :user
 # server-based syntax
 # ======================
 # Defines a single server with a list of roles and multiple properties.

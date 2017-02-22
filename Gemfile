@@ -49,4 +49,5 @@ group :development do
     gem 'capistrano3-puma',   require: false
 end
 
-gem 'puma'
+gem 'unicorn'
+gem 'rbenv'

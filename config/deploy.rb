@@ -1,7 +1,7 @@
 # Change these
 set :application, 'ranktopissues'
 
-set :repo_url, "git@github.com:ranktopissues.git"
+set :repo_url, "git@github.com:martherton/ranktopissues.git"
 
 set :deploy_to, '/var/www/ranktopissues'
 

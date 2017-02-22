@@ -23,10 +23,9 @@ test:
 production:
   adapter: postgresql
   encoding: utf8
-  database: rtidb
+  database: ranktopissues_production
   pool: 10
   username: <%= ENV['POSTGRES_USERNAME'] %>
   password: <%= ENV['POSTGRES_PASSWORD'] %>
-  host: 139.59.160.234
-  port: <%= ENV['PG_PORT'] %>
+  host: 127.0.0.1
   

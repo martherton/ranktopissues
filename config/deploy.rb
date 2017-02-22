@@ -1,9 +1,9 @@
 # Change these
-server '139.59.160.234', port: 3273, roles: [:web, :app, :db], primary: true
+server '46.101.40.24', port: 22, roles: [:web, :app, :db], primary: true
 
 set :repo_url,        'git@github.com:martherton/ranktopissues.git'
 set :application,     'ranktopissues'
-set :user,            'deploy'
+set :user,            'martherton'
 set :puma_threads,    [4, 16]
 set :puma_workers,    0
 

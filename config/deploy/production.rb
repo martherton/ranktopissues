@@ -1,6 +1,6 @@
 set stage: :production
 
-server '178.62.13.108', user: 'martherton', roles: %w{web app db}
+server '178.62.0.70', user: 'mdeploy', roles: %w{web app db}
 
 set :rbenv_ruby, '2.2.4'
 

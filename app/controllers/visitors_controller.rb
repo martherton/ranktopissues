@@ -1,7 +1,8 @@
 class VisitorsController < ApplicationController
 	def index
 		@issuecount = Issuecat.count
-		if @issuecount > 0
+		if @issuecount.blank?
+		else	
 			
 			@issue1 = Issuecat.where("issubcat = ?", true).limit(1).order("RANDOM()")
 			@issue1.each do |i|
@@ -17,7 +18,7 @@ class VisitorsController < ApplicationController
 			@issue2.each do |i|
 				@archive3 = Issue.joins(:issues_issuecats).where("issuecat_id = ? AND archive = ?", i.id, true).limit(1).order("RANDOM()")
 			end
-		else
+		
 			
 		end
 	end	

@@ -1,6 +1,7 @@
 class VisitorsController < ApplicationController
 	def index
 		@issuecount = Issuecat.count
+		
 		if @issuecount.blank?
 		else	
 			

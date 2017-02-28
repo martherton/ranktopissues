@@ -89,7 +89,12 @@ class IssuesController < ApplicationController
 	end	
 
 	
-
+	def update_categories
+		@categories = Issuecat.where("maincat_id = ?", params[:maincat_id])
+		respond_to do |format|
+			format.js
+		end	
+	end	
   
 
 	private

@@ -2,8 +2,8 @@ class IssuecatsController < ApplicationController
 	before_filter :authenticate_user!
 
 	def index
-		@lists = Issuecat.where(issubcat: false)
-		@subcats = Issuecat.where(issubcat: true)
+		@lists = Issuecat.where(issubcat: false).order('issuecatname asc')
+		@subcats = Issuecat.where(issubcat: true).order('issuecatname asc')
 	end
 	
 	def new

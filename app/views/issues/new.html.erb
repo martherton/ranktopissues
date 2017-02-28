@@ -7,6 +7,9 @@ $(document).ready(function() {
   $("#issue_category").select2({
     theme: "bootstrap"
 });
+  $("#issue_issuecat_ids").select2({
+    theme: "bootstrap"
+});
 });
 
 </script>
@@ -30,7 +33,7 @@ $(document).ready(function() {
 
   <%= f.input :officialoverride, label: "House override?" %>
 
-  <%= f.association :issuecats, label: "Select categories this issue applies to", label_method: :issuecatname, value_method: :id, include_blank: false, as: :check_boxes,collection: @subcatex, input_html: { class: 'multiselectuser'} %>
+  <%= f.association :issuecats, label_method: :issuecatname, value_method: :id, include_blank: false,collection: @subcatex, input_html: { class: 'multiselectuser'},label: "Select all other categories that apply" %>
 
 
   <%= f.button :submit, 'Add new issue' %>

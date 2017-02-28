@@ -1,3 +1,15 @@
+<script type="text/javascript">
+$(document).ready(function() {
+
+  $("#issue_subcategory").select2({
+    theme: "bootstrap"
+});
+  $("#issue_category").select2({
+    theme: "bootstrap"
+});
+});
+
+</script>
 <div class="newsingle" >
 
 <h2>New Issue</h2>
@@ -6,15 +18,15 @@
 <%= simple_form_for @issue do |f| %>
 	
 	<%= f.input :category, label: false, collection: @category, value_method: :id, label_method: :issuecatname, label: false, prompt: "Main category" %>
-	<%= f.input :subcategory, label: false, collection: @subcat, value_method: :id, label_method: :issuecatname, label: false, prompt: "Sub category" %>
+	<%= f.input :subcategory, label: false, collection: @subcat, value_method: :id, label_method: :issuecatname, label: false, prompt: "Sub category", disabled: true %>
 	
 
   <%= f.input :issuetitle, label: false, placeholder: "Title" %>
 
 
-  <%= f.input :issuedescription, label: false, placeholder: "description" %>
+  <%= f.input :issuedescription, label: false, placeholder: "Description" %>
 
-  <%= f.input :issueofficialview, label: false, placeholder: "official view" %>
+  <%= f.input :issueofficialview, label: false, placeholder: "Official view" %>
 
   <%= f.input :officialoverride, label: "House override?" %>
 

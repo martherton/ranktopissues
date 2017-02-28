@@ -3,6 +3,7 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 $ ->
 	$(document).on 'change', '#issue_category', (evt) ->
+		$("#issue_subcategory").prop("disabled", false);
 		$.ajax 'update_categories',
 		type: 'GET'
 		datatype: 'script'

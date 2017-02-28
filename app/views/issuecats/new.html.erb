@@ -1,3 +1,17 @@
+<script type="text/javascript">
+$(document).ready(function() {
+
+  $("#issuecat_maincat_id").select2({
+    theme: "bootstrap"
+});
+  
+});
+$(document).ready(function() {
+    $("#issuecat_issubcat").change(function() {
+        $("#issuecat_maincat_id").prop('disabled', !this.checked);
+    });
+});
+</script>
 <div class="newsingle" >
 <h2></h2>
 <h2>New Category</h2>
@@ -8,7 +22,7 @@
 
   <%= f.input :issubcat, label: "Is this a sub category?" %>
 
-  <%= f.input :maincat_id, label: false, collection: @maincats, value_method: :id, label_method: :issuecatname, label: false, prompt: "Main category (only use if subcategory ticked above)" %>
+  <%= f.input :maincat_id, label: false, collection: @maincats, value_method: :id, label_method: :issuecatname, label: false, prompt: "Main category (only use if subcategory ticked above)", disabled: true %>
 
 
   <%= f.button :submit, 'Add new category' %>

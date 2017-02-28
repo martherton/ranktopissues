@@ -46,7 +46,7 @@ class IssuecatsController < ApplicationController
 	end	
 
 	def update
-		  
+		   
 	end
 
 	def destroy
@@ -56,7 +56,7 @@ class IssuecatsController < ApplicationController
 	
 	
 	def show
-		@issues = Issue.joins(:issues_issuecats).where("issuecat_id = ?", params[:id])
+		@issues = Issue.where("subcategory = ?", params[:id]) 
 		@subcat = Issuecat.find(params[:id])
 		@category = Issuecat.find(@subcat.maincat_id)
 	end	

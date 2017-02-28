@@ -30,7 +30,7 @@ $(document).ready(function() {
 
   <%= f.input :officialoverride, label: "House override?" %>
 
-  <%= f.association :issuecats, label: "Select categories this issue applies to", label_method: :issuecatname, value_method: :id, include_blank: false, as: :check_boxes,collection: @subcatex %>
+  <%= f.association :issuecats, label: "Select categories this issue applies to", label_method: :issuecatname, value_method: :id, include_blank: false, as: :check_boxes,collection: @subcatex, input_html: { class: 'multiselectuser'} %>
 
 
   <%= f.button :submit, 'Add new issue' %>

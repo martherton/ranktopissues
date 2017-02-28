@@ -38,7 +38,7 @@
 				</td>
 			
 				<td><%= link_to pluralize(issue.comments.size,'comment'), issue_path(issue) %>	</td>
-				<td><% @issuecats = issue.issuecats %><% @issuecats.each do |issuecat| %><%= link_to issuecat.issuecatname, issuecat_path(issuecat.id)%>,&nbsp<% end %></td>
+				<td><% @issuecats = issue.issuecats %><% @issuecats.each_with_index do |issuecat, index| %><%= link_to issuecat.issuecatname, issuecat_path(issuecat.id)%><% if index == @issuecats.size-1 %><% else %>,&nbsp<% end %><% end %></td>
 				</tr>
 			
 			<% end %>
@@ -73,7 +73,7 @@
 				<%= pluralize(issue.votes.size, 'vote') %></td>
 			
 				<td><%= link_to pluralize(issue.comments.size,'comment'), issue_path(issue) %>	</td>
-				<td><% @issuecats = issue.issuecats %><% @issuecats.each do |issuecat| %><%= link_to issuecat.issuecatname, issuecat_path(issuecat.id)%>,&nbsp<% end %></td>
+				<td><% @issuecats = issue.issuecats %><% @issuecats.each_with_index do |issuecat, index| %><%= link_to issuecat.issuecatname, issuecat_path(issuecat.id)%><% if index == @issuecats.size-1 %><% else %>,&nbsp<% end %><% end %></td>
 			</tr>
 		<% else %>
 

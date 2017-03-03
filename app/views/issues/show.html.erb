@@ -3,7 +3,7 @@
 	<h6 id="linkbackissues"><b><%= link_to "BACK TO LIST", issuecat_path(@issue.subcategory) %> </b></h6>
   <h3><%= @issue.issuetitle %></h3>
   <h6><i><%= @issue.issuedescription %></i></h6>
-  <h5>HOUSE VIEW</h5><h6><%= @issue.issueofficialview %></h6>
+  <h5>OUR VIEW</h5><h6><%= @issue.issueofficialview %></h6>
   <% if @issue.issuechart.exists? %><%= image_tag @issue.issuechart.url %><% else %><% end %>
   </div>
   <div class="supplemental">

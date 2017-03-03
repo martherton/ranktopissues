@@ -7,6 +7,9 @@ gem 'coffee-rails', '~> 4.1.0'
 gem 'jquery-rails'
 gem 'jbuilder', '~> 2.0'
 gem 'select2-rails'
+gem 'paperclip'
+gem 'aws-sdk'
+gem 'dropzonejs-rails'
 group :development, :test do
   gem 'byebug'
 end

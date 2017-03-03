@@ -20,8 +20,8 @@ $(document).ready(function() {
  
 <%= simple_form_for @issue do |f| %>
 	
-	<%= f.input :category, label: false, collection: @category, value_method: :id, label_method: :issuecatname, label: false, prompt: "Main category" %>
-	<%= f.input :subcategory, label: false, collection: @subcat, value_method: :id, label_method: :issuecatname, label: false, prompt: "Sub category", disabled: true %>
+	<%= f.input :category, collection: @category, value_method: :id, label_method: :issuecatname, label: false, prompt: "Main category" %>
+	<%= f.input :subcategory, collection: @subcat, value_method: :id, label_method: :issuecatname, label: false, prompt: "Sub category", disabled: true %>
 	
 
   <%= f.input :issuetitle, label: false, placeholder: "Title" %>
@@ -30,6 +30,8 @@ $(document).ready(function() {
   <%= f.input :issuedescription, label: false, placeholder: "Description" %>
 
   <%= f.input :issueofficialview, label: false, placeholder: "Official view" %>
+
+  <%= f.input :issuechart, input_html: {multipart: true, class: 'dropzone'} %>
 
   <%= f.input :officialoverride, label: "House override?" %>
 

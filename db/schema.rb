@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160411112852) do
+ActiveRecord::Schema.define(version: 20170228194407) do
 
   create_table "comments", force: :cascade do |t|
     t.integer  "issue_id"
@@ -47,11 +47,15 @@ ActiveRecord::Schema.define(version: 20160411112852) do
     t.text     "issueofficialview"
     t.integer  "user_id"
     t.boolean  "officialoverride"
-    t.datetime "created_at",        null: false
-    t.datetime "updated_at",        null: false
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
     t.integer  "subcategory"
     t.boolean  "archive"
     t.integer  "votes_count"
+    t.string   "issuechart_file_name"
+    t.string   "issuechart_content_type"
+    t.integer  "issuechart_file_size"
+    t.datetime "issuechart_updated_at"
   end
 
   create_table "sources", force: :cascade do |t|

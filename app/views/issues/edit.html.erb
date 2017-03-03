@@ -1,3 +1,18 @@
+<script type="text/javascript">
+$(document).ready(function() {
+
+  $("#issue_subcategory").select2({
+    theme: "bootstrap"
+});
+  $("#issue_category").select2({
+    theme: "bootstrap"
+});
+  $("#issue_issuecat_ids").select2({
+    theme: "bootstrap"
+});
+});
+
+</script>
 <div class="newopen" >
 <h2></h2>
 <h2>New Issue</h2>
@@ -20,7 +35,7 @@
   <%= f.input :officialoverride, label: "override?" %>
   <%= f.input :archive, label: "archive?" %>
 
-  <%= f.association :issuecats, label: "Select categories this issue applies to", label_method: :issuecatname, value_method: :id, include_blank: false, as: :check_boxes,collection: @subcatex, checked: @subbcat %>
+ <%= f.association :issuecats, label_method: :issuecatname, value_method: :id, include_blank: false,collection: @subcatex, input_html: { class: 'multiselectuser'},label: "Select all other categories that apply" %>
 
   <%= f.button :submit, 'Edit issue' %>
 

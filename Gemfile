@@ -10,6 +10,7 @@ gem 'select2-rails'
 gem 'paperclip'
 gem 'aws-sdk'
 gem 'dropzonejs-rails'
+gem 'friendly_id'
 group :development, :test do
   gem 'byebug'
 end

@@ -23,7 +23,7 @@
 <% else %>
 
 <tr>
-<td><%= link_to issue.issuetitle, issue_path(issue.id)%></td>
+<td><%= link_to issue.issuetitle, issue_path(issue)%></td>
 
 				<% @voted = Vote.where("issue_id = ? AND user_id = ?", issue.id, current_user.id) %>
 				

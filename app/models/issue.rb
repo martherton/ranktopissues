@@ -1,4 +1,7 @@
 class Issue < ActiveRecord::Base
+	extend FriendlyId
+  friendly_id :issuetitle, use: [:finders]
+	
 	belongs_to :user
 	has_and_belongs_to_many :issuecats
 	has_many :sources

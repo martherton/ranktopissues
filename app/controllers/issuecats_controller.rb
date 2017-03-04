@@ -56,7 +56,8 @@ class IssuecatsController < ApplicationController
 	
 	
 	def show
-		@issues = Issue.joins(:issues_issuecats).where("issuecat_id = ?", params[:id]) 
+		
+		@issues = Issue.joins(:issues_issuecats).where("issuecat_id = ?", Issuecat.find(params[:id]).id) 
 		@subcat = Issuecat.find(params[:id])
 		@category = Issuecat.find(@subcat.maincat_id)
 	end	

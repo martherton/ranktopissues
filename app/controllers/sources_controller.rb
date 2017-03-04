@@ -1,5 +1,6 @@
 class SourcesController < ApplicationController
-	before_action :find_issue, only:[:new, :create]
+	before_action :authenticate_user!
+  before_action :find_issue, only:[:new, :create]
 
   def new
   	@sourcenew = @issue.sources.new

@@ -1,7 +1,7 @@
 class VisitorsController < ApplicationController
 	def index
 		@issuecount = Issuecat.count
-		
+		@user = current_user
 		if @issuecount.blank?
 		else	
 			

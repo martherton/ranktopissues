@@ -1,6 +1,6 @@
 class CommentsController < ApplicationController
 	before_action :find_issue, only:[:new, :create]
-
+  before_action :authenticate_user!
   def new
   	@comment = @issue.comments.new
   end

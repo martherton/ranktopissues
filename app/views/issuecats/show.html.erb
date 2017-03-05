@@ -25,16 +25,38 @@
 <tr>
 <td><%= link_to issue.issuetitle, issue_path(issue)%></td>
 
-				<% @voted = Vote.where("issue_id = ? AND user_id = ?", issue.id, current_user.id) %>
+				<% @votedu = Vote.where("issue_id = ? AND user_id = ?", issue.id, current_user.id).order("created_at") %>
+				<% @voted = Vote.where("issue_id = ?", issue.id) %>
+				<% @votedimport = @voted.where("direction = ?", true) %>
+				<% @shareimport = @votedimport.size.to_f / @voted.size.to_f %>
+				<% @votedunimport = @voted.where("direction = ?", false) %>
+				<% @shareunimport = @votedunimport.size.to_f / @voted.size.to_f %>
+				<% @votecheck = Vote.where("issue_id =?  AND user_id = ?", issue.id, current_user.id) %>
+				<% @maxup = Vote.where("issue_id = ? AND user_id = ? AND direction = ?", issue.id, current_user.id, true) %>
+				<% @maxdown = Vote.where("issue_id = ? AND user_id = ? AND direction = ?", issue.id, current_user.id, false) %>
+				<% if @votecheck.blank? %><%else%><% @lastvote = @votedu.last.direction %><% end %>
 				
 				<td>
 			
 			
-				<%= pluralize(issue.votes.size, 'vote') %>
-				<% if @voted.blank?%>
-				<%= link_to "[Vote]", issue_votes_path(issue), method: :post %>	
-				<% else %>
-				<% end %>
+				<%= pluralize(@voted.size, 'vote') %>&nbspfrom the community.</br><% if @voted.size == 0 %><%else%><%= sprintf("%0.01f", @shareimport*100) %>%&nbsp voted important&nbsp</br><%= sprintf("%0.01f", @shareunimport*100) %>%&nbsp voted unimportant.</br><%end%>  
+				<% if @votedu.blank?%>
+				Please vote if you think</br> this issue is <%= link_to "Important", issue_votes_path(issue, :dir => "1"), method: :post %>/	<%= link_to "Unimportant", issue_votes_path(issue, :dir => "0"), method: :post %>
+				<% elsif @voted.size > 0 %>
+					Your last assesed this issue as<% @lastv = @votedu.last.direction %><% if @lastv == true %>&nbspimportant<% else %>&nbspunimportant<% end%></br>
+				
+					<% if @lastvote == false %>
+							<% if @maxup.size < 2 %>
+								You can alter your vote to <%= link_to "Important", issue_votes_path(issue, :dir => "1"), method: :post %>
+							<% else %>
+							<% end %>
+					<% else %>
+							<% if @maxdown.size < 2 %>
+							   You can alter your vote to <%= link_to "Unimportant", issue_votes_path(issue, :dir => "0"), method: :post %>
+							<% else %>
+							<% end %>		   			
+					<%  end %>
+				<% end %>	
 				</td>
 			
 				<td><%= link_to pluralize(issue.comments.size,'comment'), issue_path(issue) %>	</td>

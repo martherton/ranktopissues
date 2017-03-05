@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   resources :users
   resources :issues do	
 		resources :comments
-		resources :votes
+		resources :votes, only: [:create]  
 		resources :sources
 	end	
   resources :issuecats

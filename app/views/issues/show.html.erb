@@ -1,26 +1,49 @@
 <div class="newsingle">
 	<div class="issue">
-	<h6 id="linkbackissues"><b><%= link_to "BACK TO LIST", issuecat_path(@issue.subcategory) %> </b></h6>
+	<h6 id="linkbackissues"><b><%= link_to "BACK TO LIST", issuecat_path(@issue.subcategory) %> </br><% if current_user.admin? %>
+
+			<%= link_to "Edit Issue", edit_issue_path(params[:id]) %>&nbsp
+			<%= link_to "Add Sources", new_issue_source_path(params[:id]) %>&nbsp
+  <% else %>
+  <% end %></h6>
   <h3><%= @issue.issuetitle %></h3>
   <h6><i><%= @issue.issuedescription %></i></h6>
   <h5>OUR VIEW</h5><h6><%= @issue.issueofficialview %></h6>
   <% if @issue.issuechart.exists? %><%= image_tag @issue.issuechart.url %><% else %><% end %>
   </div>
   <div class="supplemental">
-  <sub><% @voted = Vote.where("issue_id = ? AND user_id = ?", @issue.id, current_user.id) %>
-				
-  <% if current_user.admin? %>
+  <sub><% @votedu = Vote.where("issue_id = ? AND user_id = ?", @issue.id, current_user.id).order("created_at") %>
+				<% @voted = Vote.where("issue_id = ?", @issue.id) %>
+				<% @votedimport = @voted.where("direction = ?", true) %>
+				<% @shareimport = @votedimport.size.to_f / @voted.size.to_f %>
+				<% @votedunimport = @voted.where("direction = ?", false) %>
+				<% @shareunimport = @votedunimport.size.to_f / @voted.size.to_f %>
+				<% @votecheck = Vote.where("issue_id =?  AND user_id = ?", @issue.id, current_user.id) %>
+				<% @maxup = Vote.where("issue_id = ? AND user_id = ? AND direction = ?", @issue.id, current_user.id, true) %>
+				<% @maxdown = Vote.where("issue_id = ? AND user_id = ? AND direction = ?", @issue.id, current_user.id, false) %>
+				<% if @votecheck.blank? %><%else%><% @lastvote = @votedu.last.direction %><% end %>
+  
+  		<% if @votedu.blank? %>
+  		
+  Please vote if you think</br> this issue is <%= link_to "Important", issue_votes_path(@issue.id, :dir => "1"), method: :post %>/	<%= link_to "Unimportant", issue_votes_path(@issue.id, :dir => "0"), method: :post %>
 
-			<%= link_to "Edit", edit_issue_path(params[:id]) %>&nbsp
-			<%= link_to "Add Sources", new_issue_source_path(params[:id]) %>&nbsp
-  <% else %>
-  <% end %>
-  		<% if @voted.blank? %>
-  <%= link_to "[Vote]", issue_votes_path(@issue.id), method: :post %>	
+			<%elsif @votedu.size > 0 %>
+			Your last assesed this issue as<% @lastv = @votedu.last.direction %><% if @lastv == true %>&nbspimportant<% else %>&nbspunimportant</br><% end%>
+			<% end %></br>
+			<%= pluralize(@voted.size, 'vote') %>&nbspfrom the community.</br><% if @voted.size == 0 %><%else%><%= sprintf("%0.01f",@shareimport*100) %>%&nbsp voted important&nbsp</br><%= sprintf("%0.01f",@shareunimport*100) %>%&nbsp voted unimportant.</br><%end%>
+			<% if @lastvote == false %>
+							<% if @maxup.size < 2 %>
+								You can alter your vote to <%= link_to "Important", issue_votes_path(@issue.id, :dir => "1"), method: :post %>
+							<% else %>
+							<% end %>
+					<% else %>
+							<% if @maxdown.size < 2 %>
+							   You can alter your vote to <%= link_to "Unimportant", issue_votes_path(@issue.id, :dir => "0"), method: :post %>
+							<% else %>
+							<% end %>		   			
+					<%  end %>
 
-			<%else %>
-			<% end %>
-			<%= pluralize(@issue.votes.size, 'upvote') %></sub>
+			</sub>
 			</div>
 			<div class="sources">
 			<h5>SOURCED NEWS STORIES OR DOCUMENTS</h5>
@@ -47,10 +70,11 @@
 			</div>
 			<div class="addcomment">
 			<div class="addcomment1">
+			
 			<%= render "comments/new" %>
 			</div>
 			</div>
-				
+				<h5>All Commments</h5>
 				<% @comments.each do |comment| %>
 					<div class="commentary">
 					<h5><%= comment.commentbody %></h5>

@@ -100,7 +100,7 @@ class IssuesController < ApplicationController
 	private
 
 	def issue_params
-    params.require(:issue).permit(:issuetitle, :category, :subcategory, :issuedescription, :issueofficialview, :user_id, :issuechart, :officialoverride, :archive, {:issuecat_ids => []})
+    params.require(:issue).permit(:issuetitle, :category, :subcategory, :issuedescription, :issueofficialview, :user_id, :issuechart, :officialoverride, :imsource, :archive, {:issuecat_ids => []})
 
 	end	
 end

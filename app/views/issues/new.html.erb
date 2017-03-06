@@ -33,6 +33,8 @@ $(document).ready(function() {
 
   <%= f.input :issuechart, input_html: {multipart: true, class: 'dropzone'} %>
 
+  <%= f.input :imsource, label: false, placeholder: "Image Source (if required)" %>
+
   <%= f.input :officialoverride, label: "House override?" %>
 
   <%= f.association :issuecats, label_method: :issuecatname, value_method: :id, include_blank: false,collection: @subcatex, input_html: { class: 'multiselectuser'},label: "Select all other categories that apply" %>

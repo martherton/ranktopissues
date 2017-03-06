@@ -16,3 +16,4 @@
 //= require_tree .
 //= require select2-full
 //= require dropzone
+//= require jquery-ui

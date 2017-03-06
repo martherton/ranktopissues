@@ -1,16 +1,28 @@
+<script type="text/javascript">
+$(document).ready(function() {
+	$(".dropdown").hide();
+	$(".button").click(function(){
+		var list  = $(this).attr('id');
+    $("#sub" + list ).slideToggle();
+});
+});
+</script>
 <div class="newindex">
-<h2>Current Issue Lists</h2>
+</br>
+<h2>Current Issue Lists</h2></br>
 <% @lists.each do |list| %>
-<h3><%= list.issuecatname %></h3>
-<ul>
+<div class="button" id="<%=list.issuecatname %>"><h3 onmouseover="" style="cursor: pointer;">&nbsp&nbsp&nbsp<%= list.issuecatname %></h3></div>
+<div class="dropdown" id="sub<%=list.issuecatname %>">
 <% @subcats.each do |sub| %>
-
 <% if sub.maincat_id == list.id %>
-<li><h4><%= link_to sub.issuecatname, issuecat_path(sub) %></h4></li>
+
+
+
+<h4><%= link_to sub.issuecatname, issuecat_path(sub) %></h4>
 <% else %><% end %>
 
 <% end %>
-</ul>
+</div>
 <% end %>
 
 </div>

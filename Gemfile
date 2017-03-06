@@ -11,6 +11,7 @@ gem 'paperclip'
 gem 'aws-sdk'
 gem 'dropzonejs-rails'
 gem 'friendly_id'
+gem'jquery-ui-rails'
 group :development, :test do
   gem 'byebug'
 end

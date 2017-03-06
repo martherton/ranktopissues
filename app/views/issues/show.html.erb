@@ -31,6 +31,8 @@
 			Your last assesed this issue as<% @lastv = @votedu.last.direction %><% if @lastv == true %>&nbspimportant<% else %>&nbspunimportant</br><% end%>
 			<% end %></br>
 			<%= pluralize(@voted.size, 'vote') %>&nbspfrom the community.</br><% if @voted.size == 0 %><%else%><%= sprintf("%0.01f",@shareimport*100) %>%&nbsp voted important&nbsp</br><%= sprintf("%0.01f",@shareunimport*100) %>%&nbsp voted unimportant.</br><%end%>
+			<% if @voted.blank? %>
+			<% else %>
 			<% if @lastvote == false %>
 							<% if @maxup.size < 2 %>
 								You can alter your vote to <%= link_to "Important", issue_votes_path(@issue.id, :dir => "1"), method: :post %>
@@ -42,7 +44,7 @@
 							<% else %>
 							<% end %>		   			
 					<%  end %>
-
+			<% end %>		
 			</sub>
 			</div>
 			<div class="sources">
@@ -70,7 +72,7 @@
 			</div>
 			<div class="addcomment">
 			<div class="addcomment1">
-			
+
 			<%= render "comments/new" %>
 			</div>
 			</div>

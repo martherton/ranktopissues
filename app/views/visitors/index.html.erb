@@ -9,8 +9,10 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            
-          
+            <ul class="nav navbar-nav">
+      <% if user_signed_in? %><li class="navbar-brand topnav"><%= current_user.name%>,&nbspwelcome to&nbsp</li><li class="navbar-brand"><h3><%= link_to "Financial Market Issues", root_path, :id => "fmibrand" %></h3></li><% else %><li><%= link_to "Financial Market Issues", root_path %></li><%end%>
+      </ul>
+          </div>
         
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">

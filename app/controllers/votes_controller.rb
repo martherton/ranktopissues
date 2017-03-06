@@ -35,7 +35,7 @@ class VotesController < ApplicationController
 				end
 			end	
 		 if params[:iss].blank?
-				redirect_to issuecat_path(params[:cat])
+				redirect_to issuecat_path(params[:cate])
 			else
 				redirect_to issue_path(params[:iss])
 			end	

@@ -48,16 +48,16 @@
 
 			<td><% if @votedu.blank? %>
   		
-  				<%= link_to "Important", issue_votes_path(@issue.id, :dir => "1", :cat => issuecat.id, :iss => @issue.id), method: :post %>&nbsp/	<%= link_to "Unimportant", issue_votes_path(@issue.id, :dir => "0", :cat => issuecat.id, :iss => @issue.id), method: :post %>
+  				<%= link_to "Important", issue_votes_path(@issue.id, :dir => "1", :cat => issuecat.id, :iss => @issue), method: :post %>&nbsp/	<%= link_to "Unimportant", issue_votes_path(@issue.id, :dir => "0", :cat => issuecat, :iss => @issue), method: :post %>
   				<% elsif @lastvote == false %>
 							<% if @maxup.size < 2 %>
-								<%= link_to "Important", issue_votes_path(@issue.id, :dir => "1", :cat => issuecat.id, :iss => @issue.id), method: :post %>
+								<%= link_to "Important", issue_votes_path(@issue.id, :dir => "1", :cat => issuecat.id, :iss => @issue), method: :post %>
 							<% else %>
 								-
 							<% end %>
 					<% else %>
 							<% if @maxdown.size < 2 %>
-							   <%= link_to "Unimportant", issue_votes_path(@issue.id, :dir => "0", :cat => issuecat.id, :iss => @issue.id), method: :post %>
+							   <%= link_to "Unimportant", issue_votes_path(@issue.id, :dir => "0", :cat => issuecat.id, :iss => @issue), method: :post %>
 							<% else %>
 								-
 							<% end %>		   			

@@ -9,14 +9,29 @@ img {
 .portrait {
     height: 800px;
     width: 300px;
+    margin: auto;
+    background-color: #bdc3cc;
 }
 
 .landscape {
     height: 300px;
     width: 800px;
+    margin: auto;
 }
 
 .square {
     height: 750px;
     width: 750px;
+    margin: auto;
+    background-color: #bdc3cc;
+}
+
+.framed {
+		width: 910px;
+		margin:auto;
+    background-color: #bdc3cc;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    border: solid 5px #818284;
+    border-radius: 10px;
 }

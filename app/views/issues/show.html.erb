@@ -9,7 +9,7 @@
   <h3><%= @issue.issuetitle %></h3>
   <h6><i><%= @issue.issuedescription %></i></h6>
   <h5>OUR VIEW</h5><h6><%= @issue.issueofficialview %></h6></br>
-  <% if @issue.issuechart.exists? %><div class="square"><%= image_tag @issue.issuechart.url %></div></br><sub><i>Source: <%=@issue.imsource %></i></sub><% else %><% end %>
+  <% if @issue.issuechart.exists? %><div class="framed"><div class="landscape"><%= image_tag @issue.issuechart.url %></div></br><sub><i>&nbspSource: <%=@issue.imsource %></i></sub></div><% else %><% end %>
   </div>
   <div class="supplemental">
   <sub><% @votedu = Vote.where("issue_id = ? AND user_id = ?", @issue.id, current_user.id).order("created_at") %>

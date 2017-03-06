@@ -3,19 +3,19 @@ class VotesController < ApplicationController
 	def create
 			@issue = Issue.find(params[:issue_id])
 				@user = current_user
-				@votecheck = Vote.where("issue_id =?  AND user_id = ?", @issue.id, @user.id)
-				@maxup = Vote.where("issue_id = ? AND user_id = ? AND direction = ?", @issue.id, @user.id, true)
-				@maxdown = Vote.where("issue_id = ? AND user_id = ? AND direction = ?", @issue.id, @user.id, false)
+				@votecheck = Vote.where("issue_id =?  AND user_id = ? AND subcategory_id = ?", @issue.id, @user.id, params[:cat])
+				@maxup = Vote.where("issue_id = ? AND user_id = ? AND direction = ? AND subcategory_id = ?", @issue.id, @user.id, true, params[:cat])
+				@maxdown = Vote.where("issue_id = ? AND user_id = ? AND direction = ? AND subcategory_id = ?", @issue.id, @user.id, false, params[:cat])
 				if @votecheck.blank?
 				else		
 					@lastvote = @votecheck.last.direction
 				end	
 			if params[:dir] == "1"
 				if @votecheck.blank?
-					@vote = @issue.votes.new(issue_id: @issue.id, user_id: @user.id, direction: true)
+					@vote = @issue.votes.new(issue_id: @issue.id, user_id: @user.id, direction: true, subcategory_id: params[:cat])
 					@vote.save
 				elsif @maxup.size < 2 && @lastvote == false
-					@vote = @issue.votes.new(issue_id: @issue.id, user_id: @user.id, direction: true)
+					@vote = @issue.votes.new(issue_id: @issue.id, user_id: @user.id, direction: true, subcategory_id: params[:cat])
 					@vote.save
 				else	
 					flash[:error] = "You can't vote this way again"
@@ -23,19 +23,22 @@ class VotesController < ApplicationController
 			elsif params[:dir] == "0"
 				@issue = Issue.find(params[:issue_id])
 				@user = current_user
-				@votecheck = Vote.where("issue_id =?  AND user_id = ?", @issue.id, @user.id)
+				
 				if @votecheck.blank?
-					@vote = @issue.votes.new(issue_id: @issue.id, user_id: @user.id, direction: false)
+					@vote = @issue.votes.new(issue_id: @issue.id, user_id: @user.id, direction: false, subcategory_id: params[:cat])
 					@vote.save
 				elsif @maxdown.size < 2 && @lastvote == true
-					@vote = @issue.votes.new(issue_id: @issue.id, user_id: @user.id, direction: false)
+					@vote = @issue.votes.new(issue_id: @issue.id, user_id: @user.id, direction: false, subcategory_id: params[:cat])
 					@vote.save	
 				else	
 					flash[:error] = "You can't vote this way again"
 				end
 			end	
-		
-		redirect_to issuecat_path(@issue.subcategory)
+		 if params[:iss].blank?
+				redirect_to issuecat_path(params[:cat])
+			else
+				redirect_to issue_path(params[:iss])
+			end	
 	end	
 
 	
@@ -43,7 +46,7 @@ class VotesController < ApplicationController
 	private
 
 	def vote_params
-    params.require(:vote).permit(:issue_id, :user_id)
+    params.require(:vote).permit(:issue_id, :user_id, :direction, :subcategory_id)
 
 	end	
 end

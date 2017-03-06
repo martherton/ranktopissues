@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170306120630) do
+ActiveRecord::Schema.define(version: 20170306155722) do
 
   create_table "comments", force: :cascade do |t|
     t.integer  "issue_id"
@@ -95,10 +95,11 @@ ActiveRecord::Schema.define(version: 20170306120630) do
 
   create_table "votes", force: :cascade do |t|
     t.integer  "issue_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
     t.integer  "user_id"
     t.boolean  "direction"
+    t.integer  "subcategory_id"
   end
 
 end

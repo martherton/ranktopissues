@@ -50,9 +50,9 @@ class IssuesController < ApplicationController
     	@subcatex = Issuecat.where("issubcat = ?", true )
     	@subcatch = Issuecat.includes(:issues).where("id = ?", params[:id])
     	@subbcat = []
-    	@subcatch.each do |subcatch|
-    		@subbcat = @subbcat.push subcatch.id
-    	end	
+    	#@subcatch.each do |subcatch|
+    		#@subbcat = @subbcat.push subcatch.id
+    	#end	
 	  else
 			redirect_to	root_path
 	  end  

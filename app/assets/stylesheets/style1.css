@@ -1,4 +1,13 @@
-﻿.newindex, 
+﻿/*  styling the company name
+*/
+
+#fmibrand {
+	position: relative;
+	bottom: 23px;
+	color: #bbbcbf;
+}
+
+.newindex, 
 .newsingle {
 	margin-top: 4em;
 	margin-left: 2em;

@@ -3,7 +3,11 @@ class IssuesController < ApplicationController
 	respond_to :json
 
 	def index
-		
+		if current_user.admin?
+			@issue = Issue.all.order("created_at")
+		else
+			redirect_to root_path
+		end	
 	end
 	
 	def new

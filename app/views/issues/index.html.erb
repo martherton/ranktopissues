@@ -1,0 +1,22 @@
+﻿<div class="newsingle">
+<div class="CSSTableGenerator">
+
+<table>
+<tr><th>&nbspTitle</th><th>Has Image?</th><th>Categories</th><th>Archived</th></tr>
+<% @issue.each do |issue| %>
+<tr>
+<td>
+
+<%= link_to issue.issuetitle, issue_path(issue) %>
+</td>
+<td>
+<%= issue.imsource?%>
+</td>
+<td><% @issuecats = issue.issuecats %><% @issuecats.each_with_index do |issuecat, index| %><%= link_to issuecat.issuecatname, issuecat_path(issuecat.id)%><% if index == @issuecats.size-1 %><% else %>,&nbsp<% end %><% end %></td>
+
+<td><%= issue.archive %></td>
+</tr>
+<% end %>
+</table>
+</div>
+</div>

@@ -107,7 +107,7 @@ $(document).ready(function() {
 				<% @votedu = Vote.where("issue_id = ? AND user_id = ? AND subcategory_id = ?", issue.id, current_user.id, @subcat.id).order("created_at") %>
 
 				
-				<% @newvoted = Vote.where("issue_id = ? AND subcategory_id = ?", issue.id, @subcat.id).group(:user_id).having("created_at = MAX(created_at)") %>
+				<% @newvoted = Vote.where("issue_id = ? AND subcategory_id = ?", issue.id, @subcat.id).group(:id, :user_id).having("created_at = MAX(created_at)") %>
 				
 				<% @nv = 0 %>	<% @nn = 0 %><% @np = 0%>
 			<% @newvoted.each do |newvote| %><% @nv = @nv + 1 %><% if newvote.direction == false %><% @nn = @nn + 1 %><% else %><% @np = @np + 1 %><% end %><% end %>

@@ -11,7 +11,12 @@ gem 'paperclip'
 gem 'aws-sdk'
 gem 'dropzonejs-rails'
 gem 'friendly_id'
-gem'jquery-ui-rails'
+gem 'jquery-ui-rails'
+gem 'chartkick'
+gem 'jquery-turbolinks'
+gem 'turbolinks'
+gem 'jquery-tablesorter'
+gem 'gemoji'
 group :development, :test do
   gem 'byebug'
 end

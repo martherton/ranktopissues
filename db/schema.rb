@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170306155722) do
+ActiveRecord::Schema.define(version: 20170307141957) do
 
   create_table "comments", force: :cascade do |t|
     t.integer  "issue_id"
@@ -57,6 +57,8 @@ ActiveRecord::Schema.define(version: 20170306155722) do
     t.integer  "issuechart_file_size"
     t.datetime "issuechart_updated_at"
     t.string   "imsource"
+    t.integer  "posvote"
+    t.integer  "negvote"
   end
 
   create_table "sources", force: :cascade do |t|

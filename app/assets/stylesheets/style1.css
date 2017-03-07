@@ -75,6 +75,9 @@
 	padding-bottom: 2em;
 }
 
+.emojihov {
+	cursor: pointer;
+}
 
 
 /* All tables styling
@@ -176,8 +179,35 @@
 .CSSTableGenerator tr:first-child td:last-child{
 	border-width:0px 0px 1px 1px;
 }
+#sortissues thead tr th:nth-child(2),
+#sortissues thead tr th:nth-child(3),
+#sortissues thead tr th:nth-child(4),
+#sortissues thead tr th:nth-child(5),
+#sortissues thead tr th:nth-child(6),
+#sortissues thead tr th:nth-child(7),
+#sortissues thead tr th:nth-child(8)
+{
+	text-align: center;
+}
+#sortissues tr td:nth-child(2),
+#sortissues tr td:nth-child(3),
+#sortissues tr td:nth-child(4),
+#sortissues tr td:nth-child(5),
+#sortissues tr td:nth-child(6),
+#sortissues tr td:nth-child(7),
+#sortissues tr td:nth-child(8) {
+  text-align: center;
+}
+#catsort tr td:nth-child(1),
+#catsort tr td:nth-child(2),
+#catsort tr td:nth-child(3),
+#catsort tr td:nth-child(4),
+#catsort tr td:nth-child(5),
+#catsort tr td:nth-child(6),
+#catsort tr td:nth-child(7) {
+  text-align: center;
+}
 
-
-
+.tablesorter thead .disabled {display: none}
 /* Table style ends
 */

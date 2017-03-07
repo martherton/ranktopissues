@@ -1,4 +1,46 @@
-﻿
+﻿<script type="text/javascript">
+$(document).ready(function() {
+	var pagerOptions2 = {
+
+    // target the pager markup - see the HTML block below
+    container: $(".pager2")
+  };
+	var pagerOptions1 = {
+
+    // target the pager markup - see the HTML block below
+    container: $(".pager1")
+  };
+	$("#sortissues thead th:eq(5)").data("sorter", false);
+  	$("#sortissues thead th:eq(6)").data("sorter", false);
+  	$("#sortissues thead th:eq(7)").data("sorter", false);
+  	$("#sortissues thead th:eq(8)").data("sorter", false);
+  	$("#sortissues thead th:eq(5)").data("filter", false);
+  	$("#sortissues thead th:eq(6)").data("filter", false);
+  	$("#archiveisssort thead th:eq(1)").data("sorter", false);
+  	$("#archiveisssort thead th:eq(2)").data("sorter", false);
+  	$("#sortissues thead th:eq(7)").data("filter", false);
+  	$("#sortissues thead th:eq(1)").data("filter", false);
+  	$("#sortissues thead th:eq(2)").data("filter", false);
+  	$("#sortissues thead th:eq(3)").data("filter", false);
+  	$("#sortissues thead th:eq(4)").data("filter", false);
+  	$("#sortissues")
+      .tablesorter({ 
+  			sortList: [[4,1]],
+        widgets: ["zebra", "filter", "resizable"]
+         
+		    
+    })
+      .tablesorterPager(pagerOptions1);
+    
+    
+  	$("#archiveisssort")
+  	.tablesorter({ 
+  			sortList: [[0,1]]
+
+  	})
+  	.tablesorterPager(pagerOptions2);
+});
+</script>	
 
 <div class="newsingle">
 <h6 id="linkbackissues"><%= link_to "ALL LISTS", issuecats_path %></h6>
@@ -6,18 +48,53 @@
 <br>
 <h4>Live Issues</h4>
 <br>
-<div class="CSSTableGenerator">
-<table>
-
+<div >
+<table id="sortissues" class="tablesorter tablesorter-dropbox" role="grid">
+<thead>
 <tr>
-<td>Issue</td>
-<td>Votes</td>
-<td>Comments</td>
-<td>List Membership</td>
+<th>Issue</th>
+<th>All Votes</th>
+<th>Impt</th>
+<th>Unimpt</th>
+<th>rank</th>
+<th>You</th>
+<th>Alter</th>
+<th>Comments</th>
+<th>List Membership</th>
 </tr>
-
-
-
+</thead>
+<tfoot>
+<tr>
+<th>Issue</th>
+<th>All Votes</th>
+<th>Impt</th>
+<th>Unimpt</th>
+<th>rank</th>
+<th>You</th>
+<th>Alter</th>
+<th>Comments</th>
+<th>List Membership</th>
+</tr>
+<tr class="dark-row">
+      <th colspan="9">
+        <div class="pager1">
+          <button type="button" class="first"><<</button>
+          <button type="button" class="prev"><</button>
+          <span class="pagedisplay"></span>
+          <button type="button" class="next">></button>
+          <button type="button" class="last">>></button>
+          <select class="pagesize" title="Select page size">
+            <option value="10">10</option>
+            <option value="20">20</option>
+            <option value="30">30</option>
+            <option value="40">40</option>
+          </select>
+          <select class="gotoPage" title="Select page number"></select>
+        </div>
+      </th>
+    </tr>
+</tfoot>
+<tbody>
 
 <% @issues.each do |issue| %>
 
@@ -29,69 +106,102 @@
 
 				<% @votedu = Vote.where("issue_id = ? AND user_id = ? AND subcategory_id = ?", issue.id, current_user.id, @subcat.id).order("created_at") %>
 
-				<% @voted = Vote.where("issue_id = ? AND subcategory_id = ?", issue.id, @subcat.id) %>
+				
+				<% @newvoted = Vote.where("issue_id = ? AND subcategory_id = ?", issue.id, @subcat.id).group(:user_id).having("created_at = MAX(created_at)") %>
+				
+				<% @nv = 0 %>	<% @nn = 0 %><% @np = 0%>
+			<% @newvoted.each do |newvote| %><% @nv = @nv + 1 %><% if newvote.direction == false %><% @nn = @nn + 1 %><% else %><% @np = @np + 1 %><% end %><% end %>
 
-				<% @votedimport = @voted.where("direction = ?", true) %>
+				
 
-				<% @shareimport = @votedimport.size.to_f / @voted.size.to_f %>
+				<% @shareimport = @np.to_f / @nv.to_f %>
 
-				<% @votedunimport = @voted.where("direction = ?", false) %>
+				
 
-				<% @shareunimport = @votedunimport.size.to_f / @voted.size.to_f %>
+				<% @shareunimport = @nn.to_f / @nv.to_f %>
 
 				<% @votecheck = Vote.where("issue_id =?  AND user_id = ? AND subcategory_id = ?", issue.id, current_user.id, @subcat.id) %>
 
 				<% @maxup = Vote.where("issue_id = ? AND user_id = ? AND direction = ? AND subcategory_id = ?", issue.id, current_user.id, true, @subcat.id) %>
 
 				<% @maxdown = Vote.where("issue_id = ? AND user_id = ? AND direction = ? AND subcategory_id = ?", issue.id, current_user.id, false, @subcat.id) %>
+				<% if @nv == 0 %><% @rank = 0 %><% else %><% @rank = ((@np + 1.9208) / (@np + @nn) - 1.96 * Math.sqrt((@np * @nn) / (@np + @nn) + 0.9604) / (@np + @nn)) / (1 + 3.8416 / (@np + @nn)) %><% end %>
 
 				<% if @votecheck.blank? %><%else%><% @lastvote = @votedu.last.direction %><% end %>
 				
 				<td>
 			
-			
-				<%= pluralize(@voted.size, 'vote') %>&nbspfrom the community.</br><% if @voted.size == 0 %><%else%><%= sprintf("%0.01f", @shareimport*100) %>%&nbsp voted important&nbsp</br><%= sprintf("%0.01f", @shareunimport*100) %>%&nbsp voted unimportant.</br><%end%>  
+				<!--<%= pie_chart [["Important", @shareimport],[ "Unimportant", @shareunimport]], {library: {is3D: true, colors: ["green","red"], legend: 'none', width: '200', height: '200'}} %>-->
+				<%= @nv %></td><% if @nv == 0 %><td></td><td></td><td></td><%else%><td><%= sprintf("%0.01f", @shareimport*100) %>%</td><td><%= sprintf("%0.01f", @shareunimport*100) %>%</td> <td><%= sprintf("%0.01f", @rank*100) %>% </td><% end %>
 				<% if @votedu.blank?%>
-				Please vote if you think</br> this issue is <%= link_to "Important", issue_votes_path(issue, :dir => "1", :cat => @subcat.id, :cate => @subcat), method: :post %>/	<%= link_to "Unimportant", issue_votes_path(issue, :dir => "0", :cat => @subcat.id, :cate => @subcat), method: :post %>&nbspfor&nbsp<%= @subcat.issuecatname %>
-				<% elsif @voted.size > 0 %>
-					Your last assesed this issue as<% @lastv = @votedu.last.direction %><% if @lastv == true %>&nbspimportant<% else %>&nbspunimportant<% end%></br>
+				<td><%=Emoji.find_by_alias("question").raw%></td><td><%= link_to Emoji.find_by_alias("white_check_mark").raw, issue_votes_path(issue, :dir => "1", :cat => @subcat.id, :cate => @subcat), method: :post, class: "emojihov" %>&nbsp&nbsp/	<%= link_to Emoji.find_by_alias("x").raw, issue_votes_path(issue, :dir => "0", :cat => @subcat.id, :cate => @subcat), method: :post, class: "emojihov" %>&nbspfor&nbsp<%= @subcat.issuecatname %></td>
+				<% else %>
+					<td><% @lastv = @votedu.last.direction %><% if @lastv == true %><%=Emoji.find_by_alias("white_check_mark").raw%><% else %><%=Emoji.find_by_alias("x").raw%><% end%></td>
 				
 					<% if @lastvote == false %>
 							<% if @maxup.size < 2 %>
-								You can alter your vote to <%= link_to "Important", issue_votes_path(issue, :dir => "1", :cat => @subcat.id, :cate => @subcat), method: :post %>
+								<td><%= link_to Emoji.find_by_alias("white_check_mark").raw, issue_votes_path(issue, :dir => "1", :cat => @subcat.id, :cate => @subcat), method: :post, class: "emojihov" %>&nbspfor&nbsp<%= @subcat.issuecatname %></td>
 							<% else %>
+							<td>-</td>
 							<% end %>
 					<% else %>
 							<% if @maxdown.size < 2 %>
-							   You can alter your vote to <%= link_to "Unimportant", issue_votes_path(issue, :dir => "0", :cat => @subcat.id, :cate => @subcat), method: :post %>
+							   <td><%= link_to Emoji.find_by_alias("x").raw, issue_votes_path(issue, :dir => "0", :cat => @subcat.id, :cate => @subcat), method: :post, class: "emojihov" %>&nbspfor&nbsp<%= @subcat.issuecatname %></td>
 							<% else %>
+							<td>-</td>
 							<% end %>		   			
 					<%  end %>
 				<% end %>	
 				</td>
 			
-				<td><%= link_to pluralize(issue.comments.size,'comment'), issue_path(issue) %>	</td>
+				<td><%= issue.comments.size %>	</td>
 				<td><% @issuecats = issue.issuecats %><% @issuecats.each_with_index do |issuecat, index| %><%= link_to issuecat.issuecatname, issuecat_path(issuecat.id)%><% if index == @issuecats.size-1 %><% else %>,&nbsp<% end %><% end %></td>
 				</tr>
 			
 			<% end %>
 	
 <% end %>
-
+</tbody>
 </table>
+</div>
+<div>
+
 </div>
 <p></p>
 <h4>Archived Issues</h4>
 <br>
-<div class="CSSTableGenerator">
+<div >
 
-<table>
+<table id= "archiveisssort" class="tablesorter tablesorter-dropbox">
+<thead>
 <tr>
-<td>Issue</td>
-<td>Votes</td>
-<td>Comments</td>
-<td>List membership</td>
+<th>Issue</th>
+
+<th>Comments</th>
+<th>List membership</th>
+<tfoot>
+<tr class="dark-row">
+      <th colspan="3">
+        <div class="pager2">
+          <button type="button" class="first"><<</button>
+          <button type="button" class="prev"><</button>
+          <span class="pagedisplay"></span>
+          <button type="button" class="next">></button>
+          <button type="button" class="last">>></button>
+          <select class="pagesize" title="Select page size">
+            <option value="10">10</option>
+            <option value="20">20</option>
+            <option value="30">30</option>
+            <option value="40">40</option>
+          </select>
+          <select class="gotoPage" title="Select page number"></select>
+        </div>
+      </th>
+    </tr>
+</tfoot>
 </tr>
+
+<tbody>
 <% @issues.each do |issue| %>
 <% if issue.archive %>
 
@@ -99,11 +209,7 @@
 <td><%= link_to issue.issuetitle, issue_path(issue.id)%></td>
 
 				
-				<td>
 				
-			
-			
-				<%= pluralize(issue.votes.size, 'vote') %></td>
 			
 				<td><%= link_to pluralize(issue.comments.size,'comment'), issue_path(issue) %>	</td>
 				<td><% @issuecats = issue.issuecats %><% @issuecats.each_with_index do |issuecat, index| %><%= link_to issuecat.issuecatname, issuecat_path(issuecat.id)%><% if index == @issuecats.size-1 %><% else %>,&nbsp<% end %><% end %></td>
@@ -113,7 +219,7 @@
 			<% end %>
 			
 <% end %>
-
+</tbody>
 </table>
 </div>
 </div>

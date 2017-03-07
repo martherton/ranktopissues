@@ -1,6 +1,38 @@
+<script type="text/javascript">
+$(document).ready(function() {
+	var pagerOptions2 = {
+
+    // target the pager markup - see the HTML block below
+    container: $(".pager2")
+  };
+	var pagerOptions1 = {
+
+    // target the pager markup - see the HTML block below
+    container: $(".pager1")
+  };
+	$("#catsort thead th:eq(1)").data("sorter", false);
+  $("#catsort thead th:eq(6)").data("sorter", false);
+  $("#linksort thead th:eq(0)").data("sorter", false);
+  $("#linksort thead th:eq(2)").data("sorter", false);
+  $("#linksort thead th:eq(0)").data("filter", false);
+  $("#linksort thead th:eq(2)").data("filter", false);
+	$("#catsort").tablesorter({
+		sortList: [[5,1]]
+	})
+	.tablesorterPager(pagerOptions1);
+	$("#linksort").tablesorter({
+		sortList: [[5,1]],
+        widgets: ["zebra", "filter", "resizable"]
+	})
+	.tablesorterPager(pagerOptions1);
+});
+</script>	
+
 <div class="newsingle">
 	<div class="issue">
-	<h6 id="linkbackissues"><b><%= link_to "BACK TO LIST", issuecat_path(@issue.subcategory) %> </br><% if current_user.admin? %>
+	<% @issuecatorig = Issuecat.find(@issue.subcategory) %>
+	
+	<h6 id="linkbackissues"><b><%= link_to "BACK TO LIST", issuecat_path(@issuecatorig.issuecatname) %> </br><% if current_user.admin? %>
 
 			<%= link_to "Edit Issue", edit_issue_path(params[:id]) %>&nbsp
 			<%= link_to "Add Sources", new_issue_source_path(params[:id]) %>&nbsp
@@ -13,72 +45,126 @@
   </div>
   <div class="supplemental">
   </br>
-  <div class="CSSTableGenerator">
-  <table>
-  
-			<tr><td>Category</td><td>Your last assessment</td><td>Community Votes</td><td>Important</td><td>Unimportant</td><td>Vote or change your vote</td></tr>
-			<% @issuecats = @issue.issuecats %><% @issuecats.each_with_index do |issuecat, index| %><tr><td><%= link_to issuecat.issuecatname, issuecat_path(issuecat.id)%></td>
+
+  <div >
+  <table id="catsort" class="tablesorter tablesorter-dropbox">
+  <thead>
+			<tr><th>Category</th><th>Your last assessment</th><th>Community Votes</th><th>Important</th><th>Unimportant</th><th>Rank Coeff</th><th>Vote or change your vote</th></tr>
+			</thead>
+			<tfoot>
+			
+<tr class="dark-row">
+      <th colspan="7">
+        <div class="pager1">
+          <button type="button" class="first"><<</button>
+          <button type="button" class="prev"><</button>
+          <span class="pagedisplay"></span>
+          <button type="button" class="next">></button>
+          <button type="button" class="last">>></button>
+          <select class="pagesize" title="Select page size">
+            <option value="10">10</option>
+            <option value="20">20</option>
+            <option value="30">30</option>
+            <option value="40">40</option>
+          </select>
+          <select class="gotoPage" title="Select page number"></select>
+        </div>
+      </th>
+    </tr>
+</tfoot>
+			<tbody>
+			<% @issuecats = @issue.issuecats %><% @issuecats.each_with_index do |issuecat, index| %>
+			<tr>
+			<td><%= link_to issuecat.issuecatname, issuecat_path(issuecat)%></td>
 
 			<% @votedu = Vote.where("issue_id = ? AND user_id = ? AND subcategory_id =?", @issue.id, current_user.id, issuecat.id).order("created_at") %>
-				<% @voted = Vote.where("issue_id = ? AND subcategory_id = ?", @issue.id, issuecat.id) %>
-				<% @votedimport = @voted.where("direction = ?", true) %>
-				<% @shareimport = @votedimport.size.to_f / @voted.size.to_f %>
-				<% @votedunimport = @voted.where("direction = ?", false) %>
-				<% @shareunimport = @votedunimport.size.to_f / @voted.size.to_f %>
+				
+				<% @newvoted = Vote.where("issue_id = ? AND subcategory_id = ?", @issue.id, issuecat.id).group(:user_id).having("created_at = MAX(created_at)") %>
+				
+				<% @nv = 0 %>	<% @nn = 0 %><% @np = 0%>
+			<% @newvoted.each do |newvote| %><% @nv = @nv + 1 %><% if newvote.direction == false %><% @nn = @nn + 1 %><% else %><% @np = @np + 1 %><% end %><% end %>
+			
+				<% @shareimport = @np.to_f / @nv.to_f %>
+				
+				<% @shareunimport = @nn.to_f / @nv.to_f %>
 				<% @votecheck = Vote.where("issue_id =?  AND user_id = ? AND subcategory_id = ?", @issue.id, current_user.id, issuecat.id) %>
 				<% @maxup = Vote.where("issue_id = ? AND user_id = ? AND direction = ? AND subcategory_id = ?", @issue.id, current_user.id, true, issuecat.id) %>
 				<% @maxdown = Vote.where("issue_id = ? AND user_id = ? AND direction = ? AND subcategory_id = ?", @issue.id, current_user.id, false, issuecat.id) %>
 				<% if @votecheck.blank? %><%else%><% @lastvote = @votedu.last.direction %><% end %>
-  
-  		
+  			<% if @nv == 0 %><% @rank = 0 %><% else %><% @rank = ((@np + 1.9208) / (@np + @nn) - 1.96 * Math.sqrt((@np * @nn) / (@np + @nn) + 0.9604) / (@np + @nn)) / (1 + 3.8416 / (@np + @nn)) %><% end %>
 
 			
-			
-			<td>
+			<td >
 				<%if @votedu.size > 0 %>
-			<% @lastv = @votedu.last.direction %><% if @lastv == true %>&nbspImportant<% else %>&nbspUnimportant<% end%>
+			<% @lastv = @votedu.last.direction %><% if @lastv == true %><%=Emoji.find_by_alias("white_check_mark").raw%><% else %><%=Emoji.find_by_alias("x").raw%><% end%>
 			<% else %>
-				No vote
+				<%=Emoji.find_by_alias("question").raw%>
 			<% end %>
 			</td>
 			<td>
-			<%= pluralize(@voted.size, 'vote') %>
+			<%= @nv %>
 			</td>
 			
-				<% if @voted.size == 0 %><td></td><td></td><%else%><td><%= sprintf("%0.01f",@shareimport*100) %>%<td><%= sprintf("%0.01f",@shareunimport*100) %>%</td><%end%>
+				<% if @nv == 0 %><td></td><td></td><%else%><td><%= sprintf("%0.01f",@shareimport*100) %>%</td><td><%= sprintf("%0.01f",@shareunimport*100) %>%</td><%end%><td><%=sprintf("%0.01f",@rank*100) %>%</td>
 
 			<td><% if @votedu.blank? %>
   		
-  				<%= link_to "Important", issue_votes_path(@issue.id, :dir => "1", :cat => issuecat.id, :iss => @issue), method: :post %>&nbsp/	<%= link_to "Unimportant", issue_votes_path(@issue.id, :dir => "0", :cat => issuecat, :iss => @issue), method: :post %>
+  				<%= link_to Emoji.find_by_alias("white_check_mark").raw, issue_votes_path(@issue.id, :dir => "1", :cat => issuecat.id, :iss => @issue), method: :post, class: "emojihov" %>&nbsp/	<%= link_to Emoji.find_by_alias("x").raw, issue_votes_path(@issue.id, :dir => "0", :cat => issuecat.id, :iss => @issue), method: :post, class: "emojihov" %>
   				<% elsif @lastvote == false %>
 							<% if @maxup.size < 2 %>
-								<%= link_to "Important", issue_votes_path(@issue.id, :dir => "1", :cat => issuecat.id, :iss => @issue), method: :post %>
+								<%= link_to Emoji.find_by_alias("white_check_mark").raw, issue_votes_path(@issue.id, :dir => "1", :cat => issuecat.id, :iss => @issue), method: :post, class: "emojihov" %>
 							<% else %>
 								-
 							<% end %>
 					<% else %>
 							<% if @maxdown.size < 2 %>
-							   <%= link_to "Unimportant", issue_votes_path(@issue.id, :dir => "0", :cat => issuecat.id, :iss => @issue), method: :post %>
+							   <%= link_to Emoji.find_by_alias("x").raw, issue_votes_path(@issue.id, :dir => "0", :cat => issuecat.id, :iss => @issue), method: :post, class: "emojihov" %>
 							<% else %>
 								-
 							<% end %>		   			
 					<%  end %>
 					</td>
-			</tr><% end %>
+			</tr>
+			<% end %>
+			</tbody>
 			</table>
 			</div>
 			</div>
 			</br>
 			<div class="sources">
 			<h5>SOURCED NEWS STORIES OR DOCUMENTS</h5>
-			<div class="CSSTableGenerator">
-			<table>
+			<div >
+			<table id="linksort" class="tablesorter tablesorter-dropbox">
+			<thead>
 			<tr>
-			<td>Link</td>
-			<td>Description</td>
-			<td>Quality</td>
-			<td>Other Categories</td>
+			<th>Link</th>
+			<th>Description</th>
+			<th>Quality</th>
+			<th>Other Categories</th>
 			</tr>
+			</thead>
+			<tfoot>
+			
+<tr class="dark-row">
+      <th colspan="4">
+        <div class="pager2">
+          <button type="button" class="first"><<</button>
+          <button type="button" class="prev"><</button>
+          <span class="pagedisplay"></span>
+          <button type="button" class="next">></button>
+          <button type="button" class="last">>></button>
+          <select class="pagesize" title="Select page size">
+            <option value="10">10</option>
+            <option value="20">20</option>
+            <option value="30">30</option>
+            <option value="40">40</option>
+          </select>
+          <select class="gotoPage" title="Select page number"></select>
+        </div>
+      </th>
+    </tr>
+</tfoot>
+			<tbody>
 			<% @sources.each do |source| %>
 			<tr>
 			<td><%= link_to "External Source", source.sourceurl, target: '_blank' %></td>
@@ -88,6 +174,7 @@
 			</tr>
 			
 			<% end %>
+			</tbody>
 			</table>
 
 			</div>

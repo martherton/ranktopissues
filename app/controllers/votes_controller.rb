@@ -14,9 +14,12 @@ class VotesController < ApplicationController
 				if @votecheck.blank?
 					@vote = @issue.votes.new(issue_id: @issue.id, user_id: @user.id, direction: true, subcategory_id: params[:cat])
 					@vote.save
+					Issue.increment_counter(:posvote, @issue.id)
 				elsif @maxup.size < 2 && @lastvote == false
 					@vote = @issue.votes.new(issue_id: @issue.id, user_id: @user.id, direction: true, subcategory_id: params[:cat])
 					@vote.save
+					Issue.decrement_counter(:negvote, @issue.id)
+					Issue.increment_counter(:posvote, @issue.id)
 				else	
 					flash[:error] = "You can't vote this way again"
 				end
@@ -27,9 +30,12 @@ class VotesController < ApplicationController
 				if @votecheck.blank?
 					@vote = @issue.votes.new(issue_id: @issue.id, user_id: @user.id, direction: false, subcategory_id: params[:cat])
 					@vote.save
+					Issue.increment_counter(:negvote, @issue.id)
 				elsif @maxdown.size < 2 && @lastvote == true
 					@vote = @issue.votes.new(issue_id: @issue.id, user_id: @user.id, direction: false, subcategory_id: params[:cat])
 					@vote.save	
+					Issue.increment_counter(:negvote, @issue.id)
+					Issue.decrement_counter(:posvote, @issue.id)
 				else	
 					flash[:error] = "You can't vote this way again"
 				end
@@ -40,8 +46,8 @@ class VotesController < ApplicationController
 				redirect_to issue_path(params[:iss])
 			end	
 	end	
-
-	
+ 
+	 
 
 	private
 

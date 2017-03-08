@@ -14,6 +14,6 @@ class Issue < ActiveRecord::Base
   # Validate content type
   validates_attachment_content_type :issuechart, content_type: /\Aimage/
   # Validate filename
-  validates_attachment_file_name :issuechart, matches: [/png\z/, /jpg\z/, /JPG\z/]
+  validates_attachment_file_name :issuechart, matches: [/png\z/, /jpg\z/, /JPG\z/, /gif\z/, /jpeg\z/]
 
 end

@@ -26,21 +26,34 @@
 	text-align: center;
 	color: #1A228F;
 }
-@media(min-width:910px) {
-#issDesc,
+
 #issView {
+	padding-top: 0.75em;
+	background-color: #f0f9ff;
+	border-top-style: solid;
+	border-top-color: #82cffa;
+}
+
+@media(min-width:910px) {
+#issDesc{
 	margin-left: 10%;
 	margin-right: 10%;
+}
+#issView {
+	margin-left: 15%;
+	margin-right: 15%;
 }
 #issDesc h4,
 #issView h5{
 	color: #000000;
-	margin-left: 5em;
+	margin-left: 0.75em;
 }
 
 #issDesc h4 {
 	text-align: left;
 }
+
+
 
 }
 

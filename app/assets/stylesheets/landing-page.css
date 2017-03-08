@@ -17,8 +17,7 @@ h3,
 h4,
 h5,
 h6 {
-    font-family: "Lato","Helvetica Neue",Helvetica,Arial,sans-serif;
-    font-weight: 700;
+    
 }
 
 .topnav {
@@ -35,7 +34,7 @@ h6 {
     padding-bottom: 50px;
     text-align: center;
     color: #2F90AD;
-    background: url(http://ironsummitmedia.github.io/startbootstrap-landing-page/img/intro-bg.jpg) no-repeat center center;
+   
     background-size: cover;
 }
 
@@ -116,7 +115,7 @@ h6 {
 .banner {
     padding: 100px 0;
     color: #2F90AD;
-    background: url(http://ironsummitmedia.github.io/startbootstrap-landing-page/img/banner-bg.jpg) no-repeat center center;
+    
     background-size: cover;
 }
 

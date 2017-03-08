@@ -9,6 +9,13 @@ class IssuesController < ApplicationController
 			redirect_to root_path
 		end	
 	end
+
+	def feed
+		@issuetweet= Issue.all.order("created_at").limit(10)
+		respond_to do |format|
+      format.rss { render :layout => false }
+    end
+	end	
 	
 	def new
 		if current_user.admin?

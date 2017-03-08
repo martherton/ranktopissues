@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   root to: 'visitors#index'
   #order of routes matter - special AJAX routes first
   get 'issues/update_categories', as: 'update_categories'
+  get 'feed' => 'issues#feed'
   devise_for :users
   resources :users
   resources :issues do	

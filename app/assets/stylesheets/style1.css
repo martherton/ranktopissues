@@ -21,9 +21,27 @@
 /* Styling an issue
 */
 
-.issue h3 {
+.issue h3,
+.issue h4 {
 	text-align: center;
 	color: #1A228F;
+}
+@media(min-width:910px) {
+#issDesc,
+#issView {
+	margin-left: 10%;
+	margin-right: 10%;
+}
+#issDesc h4,
+#issView h5{
+	color: #000000;
+	margin-left: 5em;
+}
+
+#issDesc h4 {
+	text-align: left;
+}
+
 }
 
 .issue h5,

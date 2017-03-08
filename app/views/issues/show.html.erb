@@ -39,8 +39,13 @@ $(document).ready(function() {
   <% else %>
   <% end %></h6>
   <h3><%= @issue.issuetitle %></h3>
-  <h6><i><%= @issue.issuedescription %></i></h6>
-  <h5>OUR VIEW</h5><h6><%= @issue.issueofficialview %></h6></br>
+  <div id="issDesc">
+  <h4><i><%= @issue.issuedescription %></i></h4>
+  </div>
+  <h4>OUR VIEW</h4>
+  <div id="issView">
+  <h5><%= @issue.issueofficialview %></h5></br>
+  </div>
   <% if @issue.issuechart.exists? %><div class="framed"><div class="landscape"><%= image_tag @issue.issuechart.url %></div></br><sub><i>&nbspSource: <%=@issue.imsource %></i></sub></div><% else %><% end %>
   </div>
   <div class="supplemental">

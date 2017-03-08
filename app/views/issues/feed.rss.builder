@@ -19,9 +19,7 @@ xml.rss :version => '2.0' do
         # choose description based on social media platform
         # uses custom functions on models, they might be better
         # suited for a helper though
-        description = issue.issuedescription
         
-        xml.description description
  
         xml.pubDate issue.created_at.strftime("%Y-%m-%d")
         xml.link issue_url(issue)

@@ -32,10 +32,10 @@ $(document).ready(function() {
 	<div class="issue">
 	<% @issuecatorig = Issuecat.find(@issue.subcategory) %>
 	
-	<h6 id="linkbackissues"><b><%= link_to "BACK TO LIST", issuecat_path(@issuecatorig.issuecatname) %> </br><% if current_user.admin? %>
+	<h6 id="linkbackissues"><b><%= link_to "BACK TO LIST", issuecat_path(@issuecatorig.issuecatname) %> </br><% if current_user.admin? %><p></p>
 
-			<%= link_to "Edit Issue", edit_issue_path(params[:id]) %>&nbsp
-			<%= link_to "Add Sources", new_issue_source_path(params[:id]) %>&nbsp
+			<%= link_to "Edit Issue", edit_issue_path(params[:id]) %>
+			
   <% else %>
   <% end %></h6>
   <h3><%= @issue.issuetitle %></h3>
@@ -141,6 +141,12 @@ $(document).ready(function() {
 			</br>
 			<div class="sources">
 			<h5>SOURCED NEWS STORIES OR DOCUMENTS</h5>
+			<h6 id="linkbackissues"> <% if current_user.admin? %><p></p>
+
+			
+			<%= link_to "Add Sources", new_issue_source_path(params[:id]) %>
+  <% else %>
+  <% end %></h6>
 			<div >
 			<table id="linksort" class="tablesorter tablesorter-dropbox">
 			<thead>

@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   #order of routes matter - special AJAX routes first
   get 'issues/update_categories', as: 'update_categories'
   get 'feed' => 'issues#feed'
+  get 'download' => 'sources#download'
   devise_for :users
   resources :users
   resources :issues do	

@@ -5,6 +5,7 @@
 
 <%= simple_form_for [@issue, @sourcenew] do |f| %>
 	<%= f.input :sourceurl, label: false, placeholder: "Add a source url" %>
+	<%= f.input :sourcepdf, as: :file %>
 	<%= f.input :extradescription, label: false, placeholder: "Extra description if necessary" %>
 	Quality of the source (1-low, 10 highest)
 	<%= f.input :qualityofsource, collection: 1..10, label: false, placeholder: "Quality 1-low, 10 highest" %>

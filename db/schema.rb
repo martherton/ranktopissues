@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170307141957) do
+ActiveRecord::Schema.define(version: 20170309115025) do
 
   create_table "comments", force: :cascade do |t|
     t.integer  "issue_id"
@@ -67,8 +67,12 @@ ActiveRecord::Schema.define(version: 20170307141957) do
     t.string   "sourceurl"
     t.text     "extradescription"
     t.string   "qualityofsource"
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+    t.string   "sourcepdf_file_name"
+    t.string   "sourcepdf_content_type"
+    t.integer  "sourcepdf_file_size"
+    t.datetime "sourcepdf_updated_at"
   end
 
   create_table "users", force: :cascade do |t|

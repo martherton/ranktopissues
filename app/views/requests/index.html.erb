@@ -1,0 +1,48 @@
+<div>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+</br>
+</br>
+<% if current_user.vip? %><%= link_to "Send New request", new_request_path %><% else %><% end %>
+</br>
+<% if @requests.blank? %>You have no pending requests<% else %>
+	<table class="tablesorter tablesorter-dropbox">
+		<thead>
+			<tr>
+					<td>Request</td>
+					<td>Category</td>
+					<td>Attachement</td>
+					<td>Date</td>
+					<td>Addressed by LRR</td>
+          <% if current_user.vip? %>
+					<td>Edit</td>
+					<td>Delete</td>
+          <% else %><% end %>
+					<% if current_user.admin? %><td>User name</td><td>Completed or Archived</td><% else %><% end %>
+			</tr>
+		</thead>			
+		<tbody>
+  <% @requests.each do |request|%>
+  	
+  		<tr>
+  			<td><%= request.requestdesc%></td>
+  			<td><% if request.subcategory_id.blank? %><%= request.newsubcategory %><% else %><% @category = Issuecat.find(request.subcategory_id) %><%= @category.issuecatname %><% end %></td>
+  			<td><% if request.support.blank? %>N<% else %>Y<% end %></td>
+  			<td><%= request.created_at.strftime("%Y-%m-%d") %></td>
+  			<td><% if request.complete.blank? %>-<% else %>Yes<% end %></td>
+        <% if current_user.vip? %>
+  			<td><% if request.complete.blank? %><%= link_to("Edit", edit_request_path(request.id), :class => 'button-xs')  %><% else %>-<%end%></td>
+  			<td><% if request.complete.blank? %><%= link_to("Delete", request_path(request.id), :data => { :confirm => "Are you sure?" }, :method => :delete, :class => 'button-xs')  %><% else %>-<% end %></td><%else%><%end%>
+  			<% if current_user.admin? %><td><% @user = User.find(request.user_id) %><%= @user.name %></td><td><% if request.complete.blank? %><%= link_to("Finished", request_path(request.id), :data => { :confirm => "Are you sure this request has been completed?" }, :method => :patch, :class => 'button-xs')  %><%else%>-<%end%></td><% else %><% end %>
+  		</tr>
+  <% end %>
+  
+  <% end %>
+  </tbody>
+  </table>			
+
+
+
+</div>

@@ -192,7 +192,9 @@ $(document).ready(function() {
 			</table>
 
 			</div>
+			<h4>Add a Comment</h4>
 			</div>
+
 			<div class="addcomment">
 			<div class="addcomment1">
 
@@ -205,9 +207,9 @@ $(document).ready(function() {
 					<h5><%= comment.commentbody %></h5>
 					</div>
 					<div class="authorship">
-					<h6>Author&nbsp:&nbsp<%= User.find(comment.user_id).name %>&nbsp
+					<h6>Author&nbsp:&nbsp<%= User.find(comment.user_id).commentname %>&nbsp
 
-					Created&nbsp:&nbsp<%= comment.created_at.to_formatted_s(:short) %></h6>
+					Posted&nbsp:&nbsp<%= comment.created_at.to_formatted_s(:short) %></h6>
 					</div>
 
 				<% end %>

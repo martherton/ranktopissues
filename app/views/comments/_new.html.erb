@@ -1,7 +1,8 @@
 ﻿<div class="newopen" >
 
 
-
+<% if current_user.commentname.blank? %>
+You need to create a user name for comments.  If you wish to be anonymous to other users please do not use your name.  <%= link_to "Please create you Comment Name here.", edit_user_registration_path %><% else %>
 <% @commentnew = @issue.comments.new %>
 <%= simple_form_for [@issue, @commentnew] do |f| %>
 	<%= f.input :commentbody, label: false, placeholder: "Add a comment" %>
@@ -10,4 +11,5 @@
   <%= f.button :submit, 'Add your comment' %>
 
 <% end %>
+<%end %>
 </div>

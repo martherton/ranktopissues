@@ -6,6 +6,7 @@ class User < ActiveRecord::Base
   has_many :sources
   has_many :votes
   has_many :issuecats
+  has_many :requests
 
   def set_default_role
     self.role ||= :user

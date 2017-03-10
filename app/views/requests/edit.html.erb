@@ -1,0 +1,15 @@
+<div class="newsingle" >
+   <h3>Enter a new request</h3>
+
+   <%= simple_form_for @request do |f| %>
+   <%= f.input :category, collection: @category, value_method: :id, label_method: :issuecatname, label: false, prompt: "Main category" %>
+	<%= f.input :subcategory, collection: @subcat, value_method: :id, label_method: :issuecatname, label: false, prompt: "Sub category", disabled: true %>
+	<%= f.input :requestdesc, prompt: "Include as much detail as possible and links to any web sources mentioned" %>
+	<%= f.input :support, as: :file, prompt: "Add any supporting pdfs" %>
+	<%= f.button :submit, 'Edit request' %>
+
+<% end %>
+
+
+
+</div>

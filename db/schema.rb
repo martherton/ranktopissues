@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170309115025) do
+ActiveRecord::Schema.define(version: 20170310163459) do
 
   create_table "comments", force: :cascade do |t|
     t.integer  "issue_id"
@@ -61,6 +61,21 @@ ActiveRecord::Schema.define(version: 20170309115025) do
     t.integer  "negvote"
   end
 
+  create_table "requests", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "category_id"
+    t.integer  "subcategory_id"
+    t.string   "newsubcategory"
+    t.text     "requestdesc"
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+    t.string   "support_file_name"
+    t.string   "support_content_type"
+    t.integer  "support_file_size"
+    t.datetime "support_updated_at"
+    t.boolean  "complete"
+  end
+
   create_table "sources", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "issue_id"
@@ -88,11 +103,13 @@ ActiveRecord::Schema.define(version: 20170309115025) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
-    t.string   "name"
+    t.string   "first_name"
     t.integer  "role"
     t.string   "confirmation_token"
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
+    t.string   "last_name"
+    t.string   "commentname"
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true

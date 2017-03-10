@@ -18,7 +18,7 @@ $(document).ready(function() {
    <%= simple_form_for @request do |f| %>
    <%= f.input :category_id, collection: @category, value_method: :id, label_method: :issuecatname, label: false, prompt: "Main category" %>
 	<%= f.input :subcategory_id, collection: @subcat, value_method: :id, label_method: :issuecatname, label: false, prompt: "Sub category", disabled: true %>
-	<%= f.input :newsubcategory, label: "Use a new subcategory",prompt: "Use if there is no appropriate subcategory above" %>
+	<%= f.input :newsubcategory, label: "Use a new subcategory",placeholder: "Use if there is no appropriate subcategory above" %>
 	<%= f.input :requestdesc, label: "Request Detail", placeholder: "Include as much detail as possible and links to any web sources mentioned" %>
 	<%= f.input :support, as: :file, label: "Add a supporting pdf" %>
 

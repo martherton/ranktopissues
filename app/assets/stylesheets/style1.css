@@ -18,6 +18,14 @@
 	margin-right: 2em;
 }
 
+.newsingle {
+	background-color: #f0f9ff;
+	border-style: solid;
+	border-color: #82cffa;
+	border-radius: 10px;
+	padding: 1em;
+}
+
 
 
 /* Styling an issue

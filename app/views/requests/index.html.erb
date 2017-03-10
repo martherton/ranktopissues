@@ -29,7 +29,7 @@
   		<tr>
   			<td><%= request.requestdesc%></td>
   			<td><% if request.subcategory_id.blank? %><%= request.newsubcategory %><% else %><% @category = Issuecat.find(request.subcategory_id) %><%= @category.issuecatname %><% end %></td>
-  			<td><% if current_user.vip? %><% if request.support.blank? %>N<% else %>Y<% end %><% elsif current_user.admin? %><% if request.support.blank? %>N<% else %><%= link_to request.support.url %><% end %><% else %><% end %></td>
+  			<td><% if current_user.vip? %><% if request.support.blank? %>N<% else %>Y<% end %><% elsif current_user.admin? %><% if request.support.blank? %>N<% else %><%= link_to "PDF", request.support.url, target: '_blank' %><% end %><% else %><% end %></td>
   			<td><%= request.created_at.strftime("%Y-%m-%d") %></td>
   			<td><% if request.complete.blank? %>-<% else %>Yes<% end %></td>
         <% if current_user.vip? %>

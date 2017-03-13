@@ -10,7 +10,7 @@
                 <span class="icon-bar"></span>
             </button>
             <ul class="nav navbar-nav">
-      <% if user_signed_in? %><li class="navbar-brand topnav"><%= current_user.first_name%>,&nbspwelcome to&nbsp</li><li class="navbar-brand"><h4><%= link_to "FMI", root_path, :id => "fmibrand" %></h4></li><% else %><li><h4><%= link_to "FMI", root_path %></h4></li><%end%>
+      <% if user_signed_in? %><li class="navbar-brand topnav"><%= current_user.first_name%>,&nbspwelcome to&nbsp</li><li class="navbar-brand"><h4><%= link_to "FMI", root_path, :id => "fmibrand" %></h4></li><% else %><li class="navbar-brand topnav"><h4><%= link_to "FMI", root_path, :id => "fmibrand" %></h4></li><%end%>
       </ul>
           </div>
         
@@ -221,8 +221,8 @@
                         <a href="mailto:info@lrisuk.com">Contact</a>
                     </li>
                 </ul>
-                <p class="copyright text-muted small">Copyright &copy; LR Capital Ltd 2016. All Rights Reserved</p>
-                <%= @issuecats %><%= @issue %>
+                <p class="copyright text-muted small">Copyright &copy; LR Capital Ltd 2017. All Rights Reserved</p>
+
             </div>
         </div>
     </div>

@@ -135,7 +135,27 @@
 
       <hr class="featurette-divider">
 
-      
+      <div class="row featurette">
+        <div class="col-md-7 col-md-push-5">
+          <h2 class="featurette-heading">We also have a list covering: <span class="text-muted"><%= @issueran.fetch(1) %></span></h2>
+          <p class="lead">An example list item: <%= @issuetitle.fetch(1) %></p>
+        </div>
+        <div class="col-md-5 col-md-pull-7">
+          <%= image_tag @issueimage.fetch(1), class: "featurette-image img-responsive center-block", alt: "Generic placeholder image" %>
+        </div>
+      </div>
+
+      <hr class="featurette-divider">
+
+      <div class="row featurette">
+        <div class="col-md-7">
+          <h2 class="featurette-heading">And as a final example, this one. <span class="text-muted"><%= @issueran.fetch(2) %></span></h2>
+          <p class="lead">An example list item: <%= @issuetitle.fetch(2) %></p>
+        </div>
+        <div class="col-md-5">
+          <%= image_tag @issueimage.fetch(2), class: "featurette-image img-responsive center-block", alt: "Generic placeholder image" %>
+        </div>
+      </div>
 
       <hr class="featurette-divider">
 
@@ -202,6 +222,7 @@
                     </li>
                 </ul>
                 <p class="copyright text-muted small">Copyright &copy; LR Capital Ltd 2016. All Rights Reserved</p>
+                <%= @issuecats %><%= @issue %>
             </div>
         </div>
     </div>

@@ -4,7 +4,7 @@ class VisitorsController < ApplicationController
 		@user = current_user
 		if @issuecount.blank?
 		else	
-			@issuecats = Issuecat.where("issubcat = ?", true).order("RANDOM()").limit(3)
+			@issuecats = Issuecat.where("issubcat = ?", true).order("RANDOM()")
 			
 			
 			@issueran = Array.new

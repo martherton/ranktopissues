@@ -49,7 +49,13 @@ $(document).ready(function() {
   <div id="issView">
   <h5><%= @issue.issueofficialview %></h5></br>
   </div>
-  <% if @issue.issuechart.exists? %><div class="framed"><div class="landscape"><%= image_tag @issue.issuechart.expiring_url(5) %></div></br><sub><i>&nbspSource: <%=@issue.imsource %></i></sub></div><% else %><% end %>
+  <% if @issue.issuechart.exists? %><div class="framed"><div class="landscape"><%= image_tag @issue.issuechart.expiring_url(5), class: "img-responsive" %></div></br><sub><i>&nbspSource: <%=@issue.imsource %></i></sub></div><% else %><% end %>
+  <% @sources.each do |source| %>
+  <% if !(source.sourcepdf.content_type =~ /^image/).nil? %>
+  <div class="framed"><div class="landscape"><%= image_tag source.sourcepdf.expiring_url(5), class: "img-responsive" %></div></br><sub><i>&nbspSource: <%=source.extradescription %></i></sub></div>
+  <% else %>
+  <% end %>
+  <% end %>
   </div>
   <div class="supplemental">
   </br>
@@ -180,13 +186,15 @@ $(document).ready(function() {
 </tfoot>
 			<tbody>
 			<% @sources.each do |source| %>
+			<% if !(source.sourcepdf.content_type =~ /^image/).nil? %>
+			<% else %>
 			<tr>
-			<td><% if source.sourcepdf.blank? %><%= link_to "External Website", source.sourceurl, target: '_blank' %><% else %><%= link_to "pdf", download_path(sid: source.id), target: '_blank' %><% end %></td>
+			<td><% if source.sourcepdf.blank? %><%= link_to "External Website", source.sourceurl, target: '_blank' %><% else %><%= link_to Emoji.find_by_alias("page_facing_up").raw, download_path(sid: source.id), target: '_blank' %><% end %></td>
 			<td><%= source.extradescription %></td>
 			<td><%= source.qualityofsource %></td>
 			<td><% @issuecats = source.issuecats %><% @issuecats.each do |issuecat| %><%= link_to issuecat.issuecatname, issuecat_path(issuecat.id)%><% end %></td>
 			</tr>
-			
+			<% end %>
 			<% end %>
 			</tbody>
 			</table>

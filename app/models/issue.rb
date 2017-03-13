@@ -7,7 +7,7 @@ class Issue < ActiveRecord::Base
 	has_many :sources
 	has_many :comments
 	has_many :votes
-
+ 
 	validates :user_id, presence: true
 	validates :issuetitle, presence: true, uniqueness: true
 	has_attached_file :issuechart, styles: { medium: "300x300>", thumb: "100x100>" }, default_url: "/images/:style/missing.png",  url: "/marketissuescharts/issues/:hash.:extension", hash_secret: "longSecretString", :path =>"/marketissuescharts/issues/:hash.:extension"

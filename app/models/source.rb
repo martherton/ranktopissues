@@ -6,7 +6,7 @@ class Source < ActiveRecord::Base
 	validates :user_id, presence: true
 	
 
-	has_attached_file :sourcepdf, url: "/marketissuespdf/source/:hash.:extension", hash_secret: "longSecretString", :path =>"/marketissuespdfs/source/:hash.:extension"
-  validates_attachment_content_type :sourcepdf, content_type: /\Aapplication/
-  validates_attachment_file_name :sourcepdf, matches: [/pdf\z/] 
+	has_attached_file :sourcepdf, url: "/marketissuespdf/source/:hash.:extension", hash_secret: "longSecretString", :path =>"/marketissuespdfs/source/:hash.:extension", style: lambda { |a| a.instance.is_image? ? {thumb: "100x100>"} : {}}
+  validates_attachment_content_type :sourcepdf, content_type: [/\Aapplication/, /\Aimage/]
+  validates_attachment_file_name :sourcepdf, matches: [/pdf\z/,/png\z/, /jpg\z/, /JPG\z/, /gif\z/, /jpeg\z/] 
 end

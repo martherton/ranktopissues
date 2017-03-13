@@ -11,19 +11,15 @@ class VisitorsController < ApplicationController
 			@issuetitle = Array.new
 			@issueimage = Array.new
 			@issuecats.each do |issuecat|
-				@issue = Issue.where.not(issuechart_file_name: "").where("subcategory = ?", issuecat).order("RANDOM()").limit(1)
+				@issue = Issue.where.not(issuechart_file_name: "").where("subcategory = ?", issuecat.id).order("RANDOM()").limit(1)
 				@issue.each do |issue|
 					@issueran = @issueran.push(Issuecat.find(issue.subcategory).issuecatname)
-					@issuetitle = @issuetitle.push(Issue.find(issue).issuetitle)
-					@issueimage = @issueimage.push(Issue.find(issue).issuechart)
+					@issuetitle = @issuetitle.push(Issue.find(issue.id).issuetitle)
+					@issueimage = @issueimage.push(Issue.find(issue.id).issuechart)
 				end
 			end
 			
-			@issue2 = Issue.order("RANDOM()").limit(1)
 			
-			@issue3 = Issue.order("RANDOM()").limit(1)
-			
-			@issueimg = Issue.where.not("issuechart_file_name =?", "").order("RANDOM()").first
 		
 			
 		end

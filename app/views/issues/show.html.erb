@@ -190,7 +190,7 @@ $(document).ready(function() {
 			<% else %>
 			<tr>
 			<td><% if source.sourcepdf.blank? %><%= link_to "External Website", source.sourceurl, target: '_blank' %><% else %><%= link_to Emoji.find_by_alias("page_facing_up").raw, download_path(sid: source.id), target: '_blank' %><% end %></td>
-			<td><%= source.extradescription %></td>
+			<td><%= source.extradescription %><% if source.sourcepdf.blank? %>&nbsp<%= URI.parse(source.sourceurl).host %><% else %><% end %></td>
 			<td><%= source.qualityofsource %></td>
 			<td><% @issuecats = source.issuecats %><% @issuecats.each do |issuecat| %><%= link_to issuecat.issuecatname, issuecat_path(issuecat.id)%><% end %></td>
 			</tr>

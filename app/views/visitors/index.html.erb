@@ -125,7 +125,7 @@
       <div class="row featurette">
         <div class="col-md-7">
           <h2 class="featurette-heading">Lists cover all kinds of areas, such as: <span class="text-muted"><%= @issueran.fetch(0) %></span></h2>
-          <p class="lead">An example list item: <%= @issuetitle.fetch(0) %></p>
+          <p class="lead">An example list item: <span class="text-muted"><%= @issuetitle.fetch(0) %></span></p>
         </div>
         <div class="col-md-5">
           <%= image_tag @issueimage.fetch(0), class: "featurette-image img-responsive center-block", alt: "Generic placeholder image" %>
@@ -138,7 +138,7 @@
       <div class="row featurette">
         <div class="col-md-7 col-md-push-5">
           <h2 class="featurette-heading">We also have a list covering: <span class="text-muted"><%= @issueran.fetch(1) %></span></h2>
-          <p class="lead">An example list item: <%= @issuetitle.fetch(1) %></p>
+          <p class="lead">An example list item: <span class="text-muted"><%= @issuetitle.fetch(1) %></span></p>
         </div>
         <div class="col-md-5 col-md-pull-7">
           <%= image_tag @issueimage.fetch(1), class: "featurette-image img-responsive center-block", alt: "Generic placeholder image" %>
@@ -149,8 +149,8 @@
 
       <div class="row featurette">
         <div class="col-md-7">
-          <h2 class="featurette-heading">And as a final example, this one. <span class="text-muted"><%= @issueran.fetch(2) %></span></h2>
-          <p class="lead">An example list item: <%= @issuetitle.fetch(2) %></p>
+          <h2 class="featurette-heading">And as a final example, this one: <span class="text-muted"><%= @issueran.fetch(2) %></span></h2>
+          <p class="lead">An example list item: <span class="text-muted"><%= @issuetitle.fetch(2) %></span></p>
         </div>
         <div class="col-md-5">
           <%= image_tag @issueimage.fetch(2), class: "featurette-image img-responsive center-block", alt: "Generic placeholder image" %>

@@ -4,21 +4,26 @@ class VisitorsController < ApplicationController
 		@user = current_user
 		if @issuecount.blank?
 		else	
+			@issuecats = Issuecat.where("issubcat = ?", true).order("RANDOM()").limit(3)
 			
-			@issue1 = Issuecat.where("issubcat = ?", true).limit(1).order("RANDOM()")
-			@issue1.each do |i|
-				@archive1 = Issue.joins(:issues_issuecats).where("issuecat_id = ? AND archive = ?", i.id, true).limit(1).order("RANDOM()")
-				@id1 =  i.id
-			end 
-			@issue2 = Issuecat.where("issubcat = ? AND id <> ?", true, @id1).limit(1).order("RANDOM()")
-			@issue2.each do |i|
-				@archive2 = Issue.joins(:issues_issuecats).where("issuecat_id = ? AND archive = ?", i.id, true).limit(1).order("RANDOM()")
-				@id2= i.id
+			
+			@issueran = Array.new
+			@issuetitle = Array.new
+			@issueimage = Array.new
+			@issuecats.each do |issuecat|
+				@issue = Issue.where.not(issuechart_file_name: "").where("subcategory = ?", issuecat).order("RANDOM()").limit(1)
+				@issue.each do |issue|
+					@issueran = @issueran.push(Issuecat.find(issue.subcategory).issuecatname)
+					@issuetitle = @issuetitle.push(Issue.find(issue).issuetitle)
+					@issueimage = @issueimage.push(Issue.find(issue).issuechart)
+				end
 			end
-			@issue3 = Issuecat.where("issubcat = ? AND id <> ? AND id <> ?", true, @id1, @id2).limit(1).order("RANDOM()")
-			@issue2.each do |i|
-				@archive3 = Issue.joins(:issues_issuecats).where("issuecat_id = ? AND archive = ?", i.id, true).limit(1).order("RANDOM()")
-			end
+			
+			@issue2 = Issue.order("RANDOM()").limit(1)
+			
+			@issue3 = Issue.order("RANDOM()").limit(1)
+			
+			@issueimg = Issue.where.not("issuechart_file_name =?", "").order("RANDOM()").first
 		
 			
 		end

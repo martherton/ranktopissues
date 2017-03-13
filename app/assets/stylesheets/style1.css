@@ -1,10 +1,12 @@
 ﻿/*  styling the company name
 */
 
+
+
 #fmibrand {
 	position: relative;
 	bottom: 11px;
-	color: #bbbcbf;
+	color: #ffffff;
 }
 
 .newindex, 
@@ -252,3 +254,8 @@
 .tablesorter thead .disabled {display: none}
 /* Table style ends
 */
+
+.carousel-inner > .item > img {
+  width:70%;
+  height:70%;
+}

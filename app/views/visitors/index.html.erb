@@ -34,90 +34,143 @@
 </nav>
 
 
-
-<!-- Header -->
-<a name="about"></a>
-<div class="intro-header">
-    <div class="container">
-
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="intro-message">
-                    <h1>Financial Market Issues</h1>
-                    <h3>Live investment issues by LR Research</h3>
-                    <hr class="intro-divider">
-                    
-                </div>
+<!-- Carousel
+    ================================================== -->
+    
+    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+      <!-- Indicators -->
+      <ol class="carousel-indicators">
+        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+        <li data-target="#myCarousel" data-slide-to="1"></li>
+        <li data-target="#myCarousel" data-slide-to="2"></li>
+      </ol>
+      <div class="carousel-inner" role="listbox">
+        <div class="item active">
+            <%= image_tag "carou1.jpg", class: "first_slide" %>
+          
+          <div class="container">
+            <div class="carousel-caption">
+              <h1>Financial Market Issues</h1>
+              <p>Live lists identifying the key issues for financial markets.  Including macroeconomic and Political Issues.</p>
+              <p><%= link_to "Sign up Today", new_user_registration_path, class: "btn btn-lg btn-primary", role: "button"%></p>
             </div>
+          </div>
         </div>
+        <div class="item">
+          <%= image_tag "carou2.jpg", class: "first_slide" %>
+          <div class="container">
+            <div class="carousel-caption">
+              <h1>Financial Market Issues</h1>
+              <p>Sectoral and broader thematic issues.  Access is free, allowing you to view lists and comment on list items.</p>
+              <p><%= link_to "Sign up Today", new_user_registration_path, class: "btn btn-lg btn-primary", role: "button"%></p>
+            </div>
+          </div>
+        </div>
+        <div class="item">
+          <%= image_tag "carou3.jpg", class: "first_slide" %>
+          <div class="container">
+            <div class="carousel-caption">
+              <h1>Financial Market Issues</h1>
+              <p>Company level issue lists allow investors to rapidly identify the market moving information they should be monitoring.</p>
+              <p><%= link_to "Sign up Today", new_user_registration_path, class: "btn btn-lg btn-primary", role: "button"%></p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+      </a>
+      <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+      </a>
+    </div><!-- /.carousel -->
 
-    </div>
-    <!-- /.container -->
 
-</div>
+    <!-- Marketing messaging and featurettes
+    ================================================== -->
+    <!-- Wrap the rest of the page in another container to center all the content. -->
+    </br>
+    <div class="container marketing">
+
+      <!-- Three columns of text below the carousel -->
+      <div class="row">
+        <div class="col-lg-4">
+        <%= image_tag "circle1.jpg", class: "img-circle", alt: "Generic placeholder image", style: "width: 140px; height: 140px;" %>
+          
+          <h2>Free Access</h2>
+          <p>View lists of the hottest issues for markets and stocks.  The ability to vote on the importance of issues and make commets on issues are included in your access.</p>
+          <p><%= link_to "Sign up Today", new_user_registration_path, class: "btn btn btn-default", role: "button"%></p>
+        </div><!-- /.col-lg-4 -->
+        <div class="col-lg-4">
+          <%= image_tag "circle2.jpg", class: "img-circle", alt: "Generic placeholder image", style: "width: 140px; height: 140px;" %>
+          <h2>Upgrade your account to make requests</h2>
+          <p>With a VIP account you can request that our bank of analysts look at any company, sector, theme and asset to generate all of the important issues.  </p>
+          <p><%= link_to "Sign up Today", new_user_registration_path, class: "btn btn btn-default", role: "button"%></p>
+        </div><!-- /.col-lg-4 -->
+        <div class="col-lg-4">
+          <%= image_tag "circle3.jpg", class: "img-circle", alt: "Generic placeholder image", style: "width: 140px; height: 140px;" %>
+          <h2>Wisdon of the crowd</h2>
+          <p>Benefit from the importance that the crown places on any individual issue.</p>
+          <p><%= link_to "Sign up Today", new_user_registration_path, class: "btn btn btn-default", role: "button"%></p>
+        </div><!-- /.col-lg-4 -->
+      </div><!-- /.row -->
+
+
+      <!-- START THE FEATURETTES -->
+
+      <hr class="featurette-divider">
+
+      <div class="row featurette">
+        <div class="col-md-7">
+          <h2 class="featurette-heading">Lists cover all kinds of areas, such as: <span class="text-muted"><%= @issueran.fetch(0) %></span></h2>
+          <p class="lead">An example list item: <%= @issuetitle.fetch(0) %></p>
+        </div>
+        <div class="col-md-5">
+          <%= image_tag @issueimage.fetch(0), class: "featurette-image img-responsive center-block", alt: "Generic placeholder image" %>
+          
+        </div>
+      </div>
+
+      <hr class="featurette-divider">
+
+      <div class="row featurette">
+        <div class="col-md-7 col-md-push-5">
+          <h2 class="featurette-heading">We also have a list covering: <span class="text-muted"><%= @issueran.fetch(1) %></span></h2>
+          <p class="lead">An example list item: <%= @issuetitle.fetch(1) %></p>
+        </div>
+        <div class="col-md-5 col-md-pull-7">
+          <%= image_tag @issueimage.fetch(1), class: "featurette-image img-responsive center-block", alt: "Generic placeholder image" %>
+        </div>
+      </div>
+
+      <hr class="featurette-divider">
+
+      <div class="row featurette">
+        <div class="col-md-7">
+          <h2 class="featurette-heading">And as a final example, this one. <span class="text-muted"><%= @issueran.fetch(2) %></span></h2>
+          <p class="lead">An example list item: <%= @issuetitle.fetch(2) %></p>
+        </div>
+        <div class="col-md-5">
+          <%= image_tag @issueimage.fetch(2), class: "featurette-image img-responsive center-block", alt: "Generic placeholder image" %>
+        </div>
+      </div>
+
+      <hr class="featurette-divider">
+
+      <!-- /END THE FEATURETTES -->
+<!-- Header -->
+
 <!-- /.intro-header -->
 
 <!-- Page Content -->
 
 
-<a  name="services"></a>
-<div class="content-section-a">
 
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-5 col-sm-6">
-                <hr class="section-heading-spacer">
-                <div class="clearfix"></div>
-                <h2 class="section-heading">We curate lists of current investment issues across all geographies and asset classes. <br><br>  Example of a list category:<br><br><% @issue1.each do |i| %><%= i.issuecatname %><% end%> </h2>
-                <p class="lead">Example Archived lissue from the list:<br><% @archive1.each do |a| %><%= a.issuetitle %><% end %></p> 
-            </div>
-           
-        </div>
-
-    </div>
-    <!-- /.container -->
-
-</div>
 <!-- /.content-section-a -->
 
-<div class="content-section-b">
 
-    <div class="container">
-
-        <div class="row">
-            <div class="col-lg-5 col-lg-offset-1 col-sm-push-6  col-sm-6">
-                <hr class="section-heading-spacer">
-                <div class="clearfix"></div>
-                <h2 class="section-heading">We are currently building content through our community of respected contributors. <br><br>  Current list categories include:<br><br><% @issue2.each do |i| %><%= i.issuecatname %><% end%></h2>
-                <p class="lead">Example Archived lissue from the list:<br><% @archive2.each do |a| %><%= a.issuetitle %><% end %></p>
-            </div>
-            
-        </div>
-
-    </div>
-    <!-- /.container -->
-
-</div>
-<!-- /.content-section-b -->
-
-<div class="content-section-a">
-
-    <div class="container">
-
-        <div class="row">
-            <div class="col-lg-5 col-sm-6">
-                <hr class="section-heading-spacer">
-                <div class="clearfix"></div>
-                <h2 class="section-heading">Membership is free and includes access to lists, voting and making comments on issues in each list.  As we grow we will be adding new and exciting features. <br><br> Another Example of a category list<br><br><% @issue3.each do |i| %><%= i.issuecatname %><% end%></h2>
-                <p class="lead">Example Archived lissue from the list:<br><% @archive3.each do |a| %><%= a.issuetitle %><% end %></p>
-            </div>
-            
-        </div>
-
-    </div>
-    <!-- /.container -->
-
-</div>
 <!-- /.content-section-a -->
 
 <a  name="contact"></a>
@@ -165,7 +218,7 @@
                     
                     <li class="footer-menu-divider">&sdot;</li>
                     <li>
-                        <a href="#contact">Contact</a>
+                        <a href="mailto:info@lrisuk.com">Contact</a>
                     </li>
                 </ul>
                 <p class="copyright text-muted small">Copyright &copy; LR Capital Ltd 2016. All Rights Reserved</p>

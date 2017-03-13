@@ -10,7 +10,7 @@
 <%= link_to issue.issuetitle, issue_path(issue) %>
 </td>
 <td>
-<%= issue.imsource?%>
+<%= issue.issuechart_file_name?%>
 </td>
 <td><% @issuecats = issue.issuecats %><% @issuecats.each_with_index do |issuecat, index| %><%= link_to issuecat.issuecatname, issuecat_path(issuecat.id)%><% if index == @issuecats.size-1 %><% else %>,&nbsp<% end %><% end %></td>
 

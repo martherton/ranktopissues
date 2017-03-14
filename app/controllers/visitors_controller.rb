@@ -24,4 +24,16 @@ class VisitorsController < ApplicationController
 			
 		end
 	end	
+
+	def voting
+
+	end
+	
+	def vip
+
+	end
+
+	def about
+
+	end	
 end

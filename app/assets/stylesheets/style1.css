@@ -1,6 +1,10 @@
 ﻿/*  styling the company name
 */
 
+.listhead {
+	background-color: #f0f9ff;
+}
+
 #myCarousel {
 	padding-top: 70px;
 }

@@ -11,7 +11,7 @@ $(document).ready(function() {
 </br>
 <h2>Current Issue Lists</h2></br>
 <% @lists.each do |list| %>
-<div class="button" id="<%=list.id %>"><h3 onmouseover="" style="cursor: pointer;">&nbsp&nbsp&nbsp<%= list.issuecatname %></h3></div>
+<div class="button" id="<%=list.id %>"><h3 class="listhead" onmouseover="" style="cursor: pointer;">&nbsp&nbsp&nbsp<%= list.issuecatname %><small>&nbsp<%= Emoji.find_by_alias("small_red_triangle_down").raw %></small></h3></div>
 <div class="dropdown" id="sub<%=list.id %>">
 <% @subcats.each do |sub| %>
 <% if sub.maincat_id == list.id %>

@@ -1,7 +1,9 @@
 ﻿/*  styling the company name
 */
 
-
+#myCarousel {
+	padding-top: 70px;
+}
 
 #fmibrand {
 	position: relative;
@@ -67,6 +69,20 @@
 
 
 
+
+
+}
+
+@media(max-width:640px)  {
+	.btn-lg {
+	padding:2px 4px;
+    font-size:80%;
+    line-height: 1;
+}
+
+.carousel-caption h1 {
+	font-size: 80%;
+}
 }
 
 .issue h5,

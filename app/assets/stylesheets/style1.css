@@ -5,6 +5,20 @@
 	background-color: #f0f9ff;
 }
 
+.largetable {
+	overflow: auto;
+	overflow-y: hidden;
+}
+
+.arrow {
+	display: inline-block;
+}
+
+.pdf {
+	height:35px;
+	width: 30px;
+}
+
 #myCarousel {
 	padding-top: 70px;
 }

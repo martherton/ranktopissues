@@ -60,7 +60,7 @@ $(document).ready(function() {
   <div class="supplemental">
   </br>
 
-  <div >
+  <div class="largetable">
   <table id="catsort" class="tablesorter tablesorter-dropbox">
   <thead>
 			<tr><th>Category</th><th>Your last assessment</th><th>Community Votes</th><th>Important</th><th>Unimportant</th><th>Rank Coeff</th><th>Vote or change your vote</th></tr>
@@ -153,7 +153,7 @@ $(document).ready(function() {
 			<%= link_to "Add Sources", new_issue_source_path(params[:id]) %>
   <% else %>
   <% end %></h6>
-			<div >
+			<div class="largetable">
 			<table id="linksort" class="tablesorter tablesorter-dropbox">
 			<thead>
 			<tr>
@@ -189,7 +189,7 @@ $(document).ready(function() {
 			<% if !(source.sourcepdf.content_type =~ /^image/).nil? %>
 			<% else %>
 			<tr>
-			<td><% if source.sourcepdf.blank? %><%= link_to "External Website", source.sourceurl, target: '_blank' %><% else %><%= link_to Emoji.find_by_alias("page_facing_up").raw, download_path(sid: source.id), target: '_blank' %><% end %></td>
+			<td><% if source.sourcepdf.blank? %><%= link_to "External Website", source.sourceurl, target: '_blank' %><% else %><%= link_to image_tag("pdf.svg", class: "pdf"), download_path(sid: source.id), target: '_blank' %><% end %></td>
 			<td><%= source.extradescription %><% if source.sourcepdf.blank? %>&nbsp<%= URI.parse(source.sourceurl).host %><% else %><% end %></td>
 			<td><%= source.qualityofsource %></td>
 			<td><% @issuecats = source.issuecats %><% @issuecats.each do |issuecat| %><%= link_to issuecat.issuecatname, issuecat_path(issuecat.id)%><% end %></td>

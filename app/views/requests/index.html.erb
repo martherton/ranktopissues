@@ -5,9 +5,14 @@
 <p></p>
 </br>
 </br>
-<h6 id="linkbackissues"><% if current_user.vip? %><%= link_to("Send New request", new_request_path, :class => 'button-xs') %><% else %><% end %></h6>
-</br>
-<% if @requests.blank? %>You have no pending requests<% else %>
+
+
+
+
+<div class = "newsingle">
+
+<% if @requests.blank? %><h4>You have no pending requests</h4><% else %>
+<h2>Your Requests</h2><h6 id="linkbackissues"><% if current_user.vip? %><%= link_to("Send New request", new_request_path, :class => 'button-xs') %><% else %><% end %></h6>
 	<table class="tablesorter tablesorter-dropbox">
 		<thead>
 			<tr>
@@ -45,5 +50,5 @@
   </table>			
 
 
-
+</div>
 </div>

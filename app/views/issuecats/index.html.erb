@@ -8,7 +8,7 @@ $(document).ready(function() {
 });
 </script>
 <div class="newindex">
-</br>
+
 <h2>Current Issue Lists</h2></br>
 <% @lists.each do |list| %>
 <div class="button" id="<%=list.id %>"><h3 class="listhead" onmouseover="" style="cursor: pointer;">&nbsp&nbsp&nbsp<%= list.issuecatname %>&nbsp<small><%= image_tag "Arrow.svg", class: "arrow" %></small></h3></div>

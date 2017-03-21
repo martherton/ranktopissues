@@ -17,6 +17,7 @@ gem 'jquery-turbolinks'
 gem 'turbolinks'
 gem 'jquery-tablesorter'
 gem 'gemoji'
+
 group :development, :test do
   gem 'byebug'
 end

@@ -15,6 +15,13 @@
     <!-- Custom Fonts -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     
+    <script type="text/javascript">
+      window.setTimeout(function(){
+        $(".alert-success").fadeTo(500, 0).slideUp(500, function(){
+          $(this).remove();
+        });
+      }, 5000);
+    </script>
   </head>
   <body>
     <header>

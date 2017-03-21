@@ -1,5 +1,6 @@
 class RequestsController < ApplicationController
 	before_filter :authenticate_user!
+	
 
 	def index
 		if current_user.admin?
@@ -29,15 +30,15 @@ class RequestsController < ApplicationController
 			@user = current_user
 			@request = @user.requests.new(request_params)
 			if @request.save
-		    	flash[:success] = "Your request has been sent" 
-
+		    	flash[:success] = "Thank you. Your request has been sent." 
+		    	UserMail.requestsend(@request).deliver
 		    	respond_to do |format|
   				format.html { redirect_to requests_path }
   				format.json { head :no_content }
 
   			end
 		  	else
-		  		flash[:failure] = "Check your request for errors"
+		  		flash[:failure] = "Please check your request for errors"
 		    	render :new
 		   	end 
 		else
@@ -95,6 +96,8 @@ class RequestsController < ApplicationController
 			format.js
 		end	
 	end
+
+
 
 	private
 

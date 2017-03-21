@@ -15,11 +15,13 @@ class VotesController < ApplicationController
 					@vote = @issue.votes.new(issue_id: @issue.id, user_id: @user.id, direction: true, subcategory_id: params[:cat])
 					@vote.save
 					Issue.increment_counter(:posvote, @issue.id)
+					flash[:success] = "Your vote has been registered."
 				elsif @maxup.size < 2 && @lastvote == false
 					@vote = @issue.votes.new(issue_id: @issue.id, user_id: @user.id, direction: true, subcategory_id: params[:cat])
 					@vote.save
 					Issue.decrement_counter(:negvote, @issue.id)
 					Issue.increment_counter(:posvote, @issue.id)
+					flash[:success] = "Your vote has been registered."
 				else	
 					flash[:error] = "You can't vote this way again"
 				end
@@ -31,11 +33,13 @@ class VotesController < ApplicationController
 					@vote = @issue.votes.new(issue_id: @issue.id, user_id: @user.id, direction: false, subcategory_id: params[:cat])
 					@vote.save
 					Issue.increment_counter(:negvote, @issue.id)
+					flash[:success] = "Your vote has been registered."
 				elsif @maxdown.size < 2 && @lastvote == true
 					@vote = @issue.votes.new(issue_id: @issue.id, user_id: @user.id, direction: false, subcategory_id: params[:cat])
 					@vote.save	
 					Issue.increment_counter(:negvote, @issue.id)
 					Issue.decrement_counter(:posvote, @issue.id)
+					flash[:success] = "Your vote has been registered."
 				else	
 					flash[:error] = "You can't vote this way again"
 				end

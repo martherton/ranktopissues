@@ -102,6 +102,6 @@ class RequestsController < ApplicationController
 	private
 
 	def request_params
-		params.require(:request).permit(:category_id, :subcategory_id, :requestdesc, :support, :user_id, :newsubcategory, :complete )
+		params.require(:request).permit(:category_id, :subcategory_id, :requestdesc, :support, :user_id, :newsubcategory, :complete, :newsub )
 	end	
 end

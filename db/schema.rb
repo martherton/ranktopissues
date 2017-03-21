@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170310172134) do
+ActiveRecord::Schema.define(version: 20170321143217) do
 
   create_table "comments", force: :cascade do |t|
     t.integer  "issue_id"
@@ -74,6 +74,7 @@ ActiveRecord::Schema.define(version: 20170310172134) do
     t.integer  "support_file_size"
     t.datetime "support_updated_at"
     t.boolean  "complete"
+    t.boolean  "newsub"
   end
 
   create_table "sources", force: :cascade do |t|

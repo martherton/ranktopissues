@@ -13,6 +13,7 @@
 			<tr>
 					<td>Request</td>
 					<td>Category</td>
+          
 					<td>Attachment</td>
 					<td>Date</td>
 					<td>Addressed by LRR</td>
@@ -20,7 +21,7 @@
 					<td>Edit</td>
 					<td>Delete</td>
           <% else %><% end %>
-					<% if current_user.admin? %><td>email</td><td>name</td><td>Company</td><td>Completed or Archived</td><% else %><% end %>
+					<% if current_user.admin? %><td>New Category?</td><td>email</td><td>name</td><td>Company</td><td>Completed or Archived</td><% else %><% end %>
 			</tr>
 		</thead>			
 		<tbody>
@@ -28,14 +29,14 @@
   	
   		<tr>
   			<td><%= request.requestdesc%></td>
-  			<td><% if request.subcategory_id.blank? %><%= request.newsubcategory %><% else %><% @category = Issuecat.find(request.subcategory_id) %><%= @category.issuecatname %><% end %></td>
+  			<td><% if request.newsub == true %><%= request.newsubcategory %><% else %><% @category = Issuecat.find(request.subcategory_id) %><%= @category.issuecatname %><% end %></td>
   			<td><% if current_user.vip? %><% if request.support.blank? %>N<% else %>Y<% end %><% elsif current_user.admin? %><% if request.support.blank? %>N<% else %><%= link_to "PDF", request.support.url, target: '_blank' %><% end %><% else %><% end %></td>
   			<td><%= request.created_at.strftime("%Y-%m-%d") %></td>
   			<td><% if request.complete.blank? %>-<% else %>Yes<% end %></td>
         <% if current_user.vip? %>
   			<td><% if request.complete.blank? %><%= link_to("Edit", edit_request_path(request.id), :class => 'button-xs')  %><% else %>-<%end%></td>
   			<td><% if request.complete.blank? %><%= link_to("Delete", request_path(request.id), :data => { :confirm => "Are you sure?" }, :method => :delete, :class => 'button-xs')  %><% else %>-<% end %></td><%else%><%end%>
-  			<% if current_user.admin? %><td><% @user = User.find(request.user_id) %><%= @user.email %></td><td><%= @user.first_name %>&nbsp<%= @user.last_name %></td><td><%= @user.company %></td><td><% if request.complete.blank? %><%= link_to("Finished", request_path(request.id), :data => { :confirm => "Are you sure this request has been completed?" }, :method => :patch, :class => 'button-xs')  %><%else%>-<%end%></td><% else %><% end %>
+  			<% if current_user.admin? %><td><% if request.newsub == true %>Yes<% else %><% end %></td><td><% @user = User.find(request.user_id) %><%= @user.email %></td><td><%= @user.first_name %>&nbsp<%= @user.last_name %></td><td><%= @user.company %></td><td><% if request.complete.blank? %><%= link_to("Finished", request_path(request.id), :data => { :confirm => "Are you sure this request has been completed?" }, :method => :patch, :class => 'button-xs')  %><%else%>-<%end%></td><% else %><% end %>
   		</tr>
   <% end %>
   

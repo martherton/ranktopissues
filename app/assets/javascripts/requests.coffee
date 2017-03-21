@@ -14,3 +14,10 @@ $(document).on 'change', '#request_category_id', (evt) ->
 	success: (data, textstatus, jqXHR) ->
 		console.log("Dynamic main category select OK!")
 
+$(document).on 'change', '#request_newsub', (evt) ->
+	if $('#request_newsub').prop('checked')
+		$("#request_newsubcategory").prop("disabled", false)
+		$("#request_subcategory_id").prop("disabled", true)
+	else
+		$("#request_newsubcategory").prop("disabled", true)
+		$("#request_subcategory_id").prop("disabled", false)

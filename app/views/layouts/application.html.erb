@@ -19,8 +19,26 @@
       window.setTimeout(function(){
         $(".alert-success").fadeTo(500, 0).slideUp(500, function(){
           $(this).remove();
+
         });
       }, 5000);
+      window.setTimeout(function(){
+        $(".alert-notice").fadeTo(500, 0).slideUp(500, function(){
+          $(this).remove();
+        
+        });
+      }, 5000);
+      $( document ).ready(function() {
+
+        // hide spinner
+        $(".spinner").hide();
+
+
+       });
+
+      
+    
+      
     </script>
   </head>
   <body>
@@ -28,6 +46,10 @@
       <%= render 'layouts/navigation' unless current_page?(root_path) %>
     </header>
       <%= render 'layouts/messages' %>
+      <div class="spinner">
+        <div class="double-bounce1"></div>
+        <div class="double-bounce2"></div>
+      </div>
       <%= yield %>
       
   </body>

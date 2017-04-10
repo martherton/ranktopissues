@@ -2,9 +2,10 @@
 <div class="CSSTableGenerator">
 
 <table>
-<tr><td>&nbspTitle</td><td>Has Image?</td><td>Categories</td><td>Archived</td></tr>
+<tr><td>No.</td><td>&nbspTitle</td><td>Has Image?</td><td>Categories</td><td>Archived</td></tr>
 <% @issue.each do |issue| %>
 <tr>
+<td><%=issue.id%></td>
 <td>
 
 <%= link_to issue.issuetitle, issue_path(issue) %>

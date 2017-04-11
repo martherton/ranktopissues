@@ -83,11 +83,12 @@ class IssuesController < ApplicationController
 	      render :edit
 	    end
 	  else
-			redirect_to	new_user_find_path(current_user.id)
+			redirect_to	root_path
 		end	   
 	end
 
 	def destroy
+		
 
 	end
 

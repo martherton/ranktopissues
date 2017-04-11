@@ -52,7 +52,7 @@
             <div class="carousel-caption">
               <h1>Financial Market Issues</h1>
               <p>Live lists identifying the key issues for financial markets.  Including macroeconomic and Political Issues.</p>
-              <p><%= link_to "Sign up Today", new_user_registration_path, class: "btn btn-lg btn-primary", role: "button"%></p>
+              <p><% if user_signed_in? %><% else %><%= link_to "Sign up Today", new_user_registration_path, class: "btn btn-lg btn-primary", role: "button"%><% end %></p>
             </div>
           </div>
         </div>
@@ -62,7 +62,7 @@
             <div class="carousel-caption">
               <h1>Financial Market Issues</h1>
               <p>Sectoral and broader thematic issues.  Access is free, allowing you to view lists and comment on list items.</p>
-              <p><%= link_to "Sign up Today", new_user_registration_path, class: "btn btn-lg btn-primary", role: "button"%></p>
+              <p><% if user_signed_in? %><% else %><%= link_to "Sign up Today", new_user_registration_path, class: "btn btn-lg btn-primary", role: "button"%><% end %></p>
             </div>
           </div>
         </div>
@@ -72,7 +72,7 @@
             <div class="carousel-caption">
               <h1>Financial Market Issues</h1>
               <p>Company level issue lists allow investors to rapidly identify the market moving information they should be monitoring.</p>
-              <p><%= link_to "Sign up Today", new_user_registration_path, class: "btn btn-lg btn-primary", role: "button"%></p>
+              <p><% if user_signed_in? %><% else %><%= link_to "Sign up Today", new_user_registration_path, class: "btn btn-lg btn-primary", role: "button"%><% end %></p>
             </div>
           </div>
         </div>

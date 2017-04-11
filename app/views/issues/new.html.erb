@@ -10,6 +10,13 @@ $(document).ready(function() {
   $("#issue_issuecat_ids").select2({
     theme: "bootstrap"
 });
+
+  $("#issue_issuecat_ids").change(function(){
+
+
+        
+            $('.btn').attr('disabled',false);
+    });
 });
 
 </script>
@@ -39,10 +46,10 @@ $(document).ready(function() {
 
   <%= f.input :officialoverride, label: "House override?" %>
 
-  <%= f.association :issuecats, label_method: :issuecatname, value_method: :id, include_blank: false,collection: @subcatex, input_html: { class: 'multiselectuser'},label: "Select all other categories that apply" %>
+  <%= f.association :issuecats, label_method: :issuecatname, value_method: :id, include_blank: false,collection: @subcatex, input_html: { class: 'multiselectuser'},label: "Select all categories that apply" %>
 
 
-  <%= f.button :submit, 'Add new issue' %>
+  <%= f.button :submit, 'Add new issue', disabled: true %>
 
 <% end %>
 </div>

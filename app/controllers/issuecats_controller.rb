@@ -4,6 +4,7 @@ class IssuecatsController < ApplicationController
 	def index
 		@lists = Issuecat.where(issubcat: false).order('issuecatname asc')
 		@subcats = Issuecat.where(issubcat: true).order('issuecatname asc')
+		@issues = Issue.last(5)
 	end
 	
 	def new
@@ -56,10 +57,15 @@ class IssuecatsController < ApplicationController
 	
 	
 	def show
-		
+		if params[:id] == "q"
+			@issues = Issue.joins(:issues_issuecats).where("issuecat_id = ?", Issuecat.find(params[:search][:q]).id) 
+		@subcat = Issuecat.find(params[:search][:q])
+		@category = Issuecat.find(@subcat.maincat_id)
+		else	
 		@issues = Issue.joins(:issues_issuecats).where("issuecat_id = ?", Issuecat.find(params[:id]).id) 
 		@subcat = Issuecat.find(params[:id])
 		@category = Issuecat.find(@subcat.maincat_id)
+	end
 
 	end	
 

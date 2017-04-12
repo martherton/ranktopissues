@@ -1,4 +1,8 @@
 <script type="text/javascript">
+$( function() {
+    $( "#issue_datedue" ).datepicker();
+  } );
+
 $(document).ready(function() {
 
   $("#issue_subcategory").select2({
@@ -11,7 +15,11 @@ $(document).ready(function() {
     theme: "bootstrap"
 });
 });
-
+$(document).ready(function() {
+    $("#issue_dated").change(function() {
+        $("#issue_datedue").prop('disabled', !this.checked);
+    });
+});
 </script>
 <div class="newopen" >
 <h2></h2>
@@ -36,6 +44,8 @@ $(document).ready(function() {
   
 
   <%= f.input :officialoverride, label: "override?" %>
+  <%= f.input :dated, label: "Is this issue Date Dependent?" %>
+   <%= f.input :datedue, label: "Select the Date", as: :string, input_html: {maxlength: 10, style: 'width: 10em'}, disabled: true %>
   <%= f.input :archive, label: "archive?" %>
 
  <%= f.association :issuecats, label_method: :issuecatname, value_method: :id, include_blank: false,collection: @subcatex, input_html: { class: 'multiselectuser'},label: "Select all other categories that apply" %>

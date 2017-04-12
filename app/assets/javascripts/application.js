@@ -17,10 +17,11 @@
 //= require bootstrap-sprockets
 //= require_tree .
 //= require select2-full
-//= require dropzone
+
 //= require jquery-ui
 //= require jquery-tablesorter
 //= require jquery-tablesorter/addons/pager/jquery.tablesorter.pager
 //= require jquery-tablesorter/beta-testing/pager-custom-controls
 //= require jquery-tablesorter/jquery.tablesorter.widgets
+
 //= require_self

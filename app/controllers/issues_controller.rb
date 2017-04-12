@@ -34,6 +34,7 @@ class IssuesController < ApplicationController
 		if current_user.admin?
 				
 		    @user = current_user
+		    
 		    @issue = @user.issues.new(issue_params)
 		    if @issue.save
 		    	flash[:success] = "Your issue was created" 
@@ -113,7 +114,7 @@ class IssuesController < ApplicationController
 	private
 
 	def issue_params
-    params.require(:issue).permit(:issuetitle, :category, :subcategory, :issuedescription, :issueofficialview, :user_id, :issuechart, :officialoverride, :imsource, :archive, {:issuecat_ids => []})
+    params.require(:issue).permit(:issuetitle, :category, :subcategory, :issuedescription, :issueofficialview, :user_id, :issuechart, :officialoverride, :imsource, :datedue, :dated, :archive, {:issuecat_ids => []})
 
 	end	
 end

@@ -18,5 +18,5 @@ class Issue < ActiveRecord::Base
   # Validate filename
   validates_attachment_file_name :issuechart, matches: [/png\z/, /jpg\z/, /JPG\z/, /gif\z/, /jpeg\z/]
   
-
+  
 end

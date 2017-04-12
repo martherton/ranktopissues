@@ -5,24 +5,63 @@ $(document).ready(function() {
 		var list  = $(this).attr('id');
     $("#sub" + list ).slideToggle();
 });
+	$("#search_q").change(function() {
+        $(this.form.submit());
+    });
+	$("#search_q").select2({
+    theme: "bootstrap"
+});
 });
 </script>
-<div class="newindex">
+<div class="modal-body row">
+	<div class="col-md-5">
+		<div class="newindex">
+		<h2>Search Lists</h2>
+		<%= simple_form_for :search, url: issuecat_path(:q), method: :get do |f| %>
+	<%= f.input :q , label: false, collection: @subcats, value_method: :id, label_method: :issuecatname, label: false%>
+	
+<% end %>	
+		</div>
+		<div class="newindex">
 
-<h2>Current Issue Lists</h2></br>
-<% @lists.each do |list| %>
-<div class="button" id="<%=list.id %>"><h3 class="listhead" onmouseover="" style="cursor: pointer;">&nbsp&nbsp&nbsp<%= list.issuecatname %>&nbsp<small><%= image_tag "Arrow.svg", class: "arrow" %></small></h3></div>
-<div class="dropdown" id="sub<%=list.id %>">
-<% @subcats.each do |sub| %>
-<% if sub.maincat_id == list.id %>
+			<h2>Browse Current Issue Lists</h2></br>
+			<% @lists.each do |list| %>
+			<div class="button" id="<%=list.id %>"><h3 class="listhead" onmouseover="" style="cursor: pointer;">&nbsp&nbsp&nbsp<%= list.issuecatname %>&nbsp<small><%= image_tag "Arrow.svg", class: "arrow" %></small></h3></div>
+				<div class="dropdown" id="sub<%=list.id %>">
+				<% @subcats.each do |sub| %>
+				<% if sub.maincat_id == list.id %>
 
 
 
-<h4><%= link_to sub.issuecatname, issuecat_path(sub) %></h4>
-<% else %><% end %>
+				<h4><%= link_to sub.issuecatname, issuecat_path(sub) %></h4>
+				<% else %><% end %>
 
-<% end %>
+				<% end %>
+
+				</div>
+			<% end %>
+		</div>
+	</div>	
+  <div class="col-md-7">
+    
+  	<div class="newindex">
+		<h2>Recently added issues</h2></br>
+		
+		<table class="recentissues">
+		<tr>
+		<th>Issue</th><th>List membership</th>
+		</tr>
+		
+		<% @issues.each do |issue| %>
+		
+		<tr>
+		<td><%= link_to issue.issuetitle, issue_path(issue) %></td>
+		<td><% @issuecats = issue.issuecats %><% @issuecats.each_with_index do |issuecat, index| %><%= link_to issuecat.issuecatname, issuecat_path(issuecat)%><% if index == @issuecats.size-1 %><% else %>,&nbsp<% end %><% end %></td>
+		</tr>
+		<% end %>
+		
+		</table>
+		</div>
+  </div>
 </div>
-<% end %>
-
 </div>

@@ -1,4 +1,7 @@
 <script type="text/javascript">
+$( function() {
+    $( "#issue_datedue" ).datepicker();
+  } );
 $(document).ready(function() {
 
   $("#issue_subcategory").select2({
@@ -11,11 +14,21 @@ $(document).ready(function() {
     theme: "bootstrap"
 });
 
+ 
+   
+
+
   $("#issue_issuecat_ids").change(function(){
 
 
         
             $('.btn').attr('disabled',false);
+    });
+});
+
+ $(document).ready(function() {
+    $("#issue_dated").change(function() {
+        $("#issue_datedue").prop('disabled', !this.checked);
     });
 });
 
@@ -45,6 +58,8 @@ $(document).ready(function() {
 
 
   <%= f.input :officialoverride, label: "House override?" %>
+   <%= f.input :dated, label: "Is this issue Date Dependent?" %>
+   <%= f.input :datedue, label: "Select the Date", as: :string, input_html: {maxlength: 10, style: 'width: 10em'}, disabled: true %>
 
   <%= f.association :issuecats, label_method: :issuecatname, value_method: :id, include_blank: false,collection: @subcatex, input_html: { class: 'multiselectuser'},label: "Select all categories that apply" %>
 

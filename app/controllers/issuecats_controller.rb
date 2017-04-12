@@ -5,6 +5,8 @@ class IssuecatsController < ApplicationController
 		@lists = Issuecat.where(issubcat: false).order('issuecatname asc')
 		@subcats = Issuecat.where(issubcat: true).order('issuecatname asc')
 		@issues = Issue.last(5)
+		@upcoming = Issue.where("datedue <> ''").order('datedue asc').limit(10)
+		
 	end
 	
 	def new

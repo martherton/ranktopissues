@@ -15,7 +15,7 @@
 </td>
 <td><% @issuecats = issue.issuecats %><% @issuecats.each_with_index do |issuecat, index| %><%= link_to issuecat.issuecatname, issuecat_path(issuecat.id)%><% if index == @issuecats.size-1 %><% else %>,&nbsp<% end %><% end %></td>
 
-<td><%= issue.archive %></td><td><%= issue.dated %></td>
+<td><%= issue.archive %></td><td><%= issue.datedue %></td>
 </tr>
 <% end %>
 </table>

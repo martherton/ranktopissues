@@ -61,7 +61,24 @@ $(document).ready(function() {
 		<% end %>
 		
 		</table>
+		<h2>Upcoming Issues</h2>	
+		<table class="recentissues">
+		<tr>
+		<th>Issue</th><th>Date</th>
+		</tr>
+		<% @upcoming.each do |up| %>
+		<% if up.archive == true %>
+		<% else %>
+		<tr>
+		<td><%= link_to up.issuetitle, issue_path(up) %></td>
+		<td><%= up.datedue %></td>
+		</tr>
+		<% end %>
+		<% end %>
+		</table>
 		</div>
   </div>
 </div>
 </div>
+
+	

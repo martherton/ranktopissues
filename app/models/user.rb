@@ -8,6 +8,12 @@ class User < ActiveRecord::Base
   has_many :issuecats
   has_many :requests
 
+  before_create :send_notification
+
+  def send_notification
+    UserMail.notifysend.deliver
+  end  
+
   def set_default_role
     self.role ||= :user
   end

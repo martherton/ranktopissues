@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   get 'voting' => 'visitors#voting'
   get 'vip' => 'visitors#vip'
   get 'about' => 'visitors#about'
+  get 'account' => 'users#show'
   devise_for :users, :controllers => { registrations: 'registrations' }
   resources :users 
   resources :requests

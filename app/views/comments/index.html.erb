@@ -1,0 +1,34 @@
+﻿<div class="newindex">
+<h1>Comments in past 72 hours</h1>
+<table class="recentissues">
+<tr>
+<th>Comment</th><th>User</th><th>Issues</th>
+</tr>
+<% @comments.each do |comm| %>
+	<tr>
+	<td><%= comm.commentbody %></td>
+	<td><% @user = User.find(comm.user_id) %><%= link_to @user.last_name, user_path(comm.user_id) %></td>
+	<td><% @issue = Issue.find(comm.issue_id) %><%= link_to @issue.issuetitle, issue_path(@issue) %></td>
+	</tr>
+<% end %>
+</table>
+<h1>Most Voted Issues past 72 hours</h1>
+
+<table class = "recentissues">
+
+
+<tr>
+<th>Category</th><th>Issue</th><th>Direction</th><th>Count</th>
+</tr>
+<%@votes.each do |v| %>
+<tr>
+<% @subcat = Issuecat.find(v[0][2]) %>
+<td><%= link_to @subcat.issuecatname, issuecat_path(@subcat) %></td>
+<% @issue =Issue.find(v[0][0])%>
+<td><%= link_to @issue.issuetitle, issue_path(@issue) %></td>
+<% if v[0][1] == false %><td>Down</td><% else %><td>Up</td><% end %>
+<td><%= v[1]%></td>
+</tr>
+<% end %>
+</table>
+</div>	

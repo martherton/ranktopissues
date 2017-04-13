@@ -11,6 +11,15 @@ class CommentsController < ApplicationController
   	redirect_to issue_path(@issue)
   end
 
+  def index
+    if current_user.admin?
+      @comments = Comment.where(updated_at: (Time.now - 72.hours)..Time.now)
+      @votes = Vote.where(updated_at: (Time.now - 72.hours)..Time.now).group('issue_id','direction','subcategory_id').order('count_id desc').count('id')
+    else
+      redirect_to root_path
+    end
+  end  
+
 private
 
 	def find_issue

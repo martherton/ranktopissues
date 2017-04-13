@@ -3,6 +3,13 @@
 </td>
 <td>
 <%= user.confirmed? %>
+</td>
+<td>
+<%= user.commentname %>
+</td>
+<td>
+<%= user.company %>
+</td>
 <td>
   <%= form_for(user) do |f| %>
     <%= f.select(:role, User.roles.keys.map {|role| [role.titleize,role]}) %>

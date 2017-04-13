@@ -1,7 +1,9 @@
-<div>
-<h3>User</h3>
-<p>Fisrt Name: <%= @user.first_name if @user.first_name %></p>
+<div class="newindex">
+<h3>Account Details</h3>
+<p>First Name: <%= @user.first_name if @user.first_name %></p>
 <p>Last Name: <%= @user.last_name if @user.last_name %></p>
 <p>Name for comments: <%= @user.commentname if @user.commentname %></p>
 <p>Email: <%= @user.email if @user.email %></p>
+<p>Your status: <%= @user.role %></p>
+<p><%= link_to "Edit Account", edit_user_registration_path, class: "btn btn-lg btn-success", role: "button"%></p>
 </div>

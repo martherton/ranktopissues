@@ -14,11 +14,13 @@ Rails.application.routes.draw do
   devise_for :users, :controllers => { registrations: 'registrations' }
   resources :users 
   resources :requests
+
   
   resources :issues do	
 		resources :comments
 		resources :votes, only: [:create]  
 		resources :sources
+    resources :assessments
 	end	
   resources :issuecats
 

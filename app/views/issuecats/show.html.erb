@@ -99,7 +99,7 @@ $(document).ready(function() {
 <% @issues.each do |issue| %>
 
 <% if issue.archive %>
-<% else %>
+<% elsif issue.draft || issue.draft.nil? %>
 
 <tr>
 <td><%= link_to issue.issuetitle, issue_path(issue)%></td>

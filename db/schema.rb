@@ -11,7 +11,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170412131917) do
+ActiveRecord::Schema.define(version: 20170413152938) do
+
+  create_table "assessments", force: :cascade do |t|
+    t.integer  "issue_id"
+    t.integer  "user_id"
+    t.string   "timing"
+    t.string   "magnitude"
+    t.string   "certainty"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer  "subcat_id"
+  end
 
   create_table "comments", force: :cascade do |t|
     t.integer  "issue_id"
@@ -61,6 +72,7 @@ ActiveRecord::Schema.define(version: 20170412131917) do
     t.integer  "negvote"
     t.boolean  "dated"
     t.string   "datedue"
+    t.boolean  "draft"
   end
 
   create_table "requests", force: :cascade do |t|

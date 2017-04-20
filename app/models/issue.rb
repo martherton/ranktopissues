@@ -7,6 +7,7 @@ class Issue < ActiveRecord::Base
 	has_many :sources
 	has_many :comments
 	has_many :votes
+	has_many :assessments
  
 	validates :user_id, presence: true
 	validates :issuetitle, presence: true, uniqueness: true

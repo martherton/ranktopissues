@@ -44,6 +44,7 @@ $(document).ready(function() {
   
 
   <%= f.input :officialoverride, label: "override?" %>
+  <%= f.input :draft, label: "Publish?" %>
   <%= f.input :dated, label: "Is this issue Date Dependent?" %>
    <%= f.input :datedue, label: "Select the Date", as: :string, input_html: {maxlength: 10, style: 'width: 10em'}, disabled: true %>
   <%= f.input :archive, label: "archive?" %>

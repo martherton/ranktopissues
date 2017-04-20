@@ -1,0 +1,44 @@
+﻿<script type="text/javascript">
+
+$(document).ready(function() {
+
+  $("#assessment_timing").select2({
+    theme: "bootstrap"
+});
+  $("#assessment_magnitude").select2({
+    theme: "bootstrap"
+});
+  $("#assessment_certainty").select2({
+    theme: "bootstrap"
+});
+
+ 
+  
+});
+</script>
+
+<div class="newsingle" >
+
+<h2>New Assessment</h2>
+ 
+ <h3>Issue</h3>
+ <h4><%= @issue.issuetitle %></h4>
+ <%=@assessment [1]%>
+<%= simple_form_for [@issue, @assessment] do |f| %>
+	<%= f.input :subcat_id, collection: @subcats, value_method: :id, label_method: :issuecatname, label: false, prompt: "Category being assessed" %>
+	<div class="modal-body row">
+	<div class="col-md-4">
+	<%= f.input :timing, collection: ["None","Positive","Negative","Slow Burn Positive","Slow Burn Negative"], selected: "None" %>
+	</div>
+	<div class="col-md-4">
+	<%= f.input :magnitude, collection: ["None","Positive","Negative","Slow Burn Positive","Slow Burn Negative"], selected: "None" %>
+	</div>
+	<div class="col-md-4">
+	<%= f.input :certainty, collection: ["None","Positive","Negative","Slow Burn Positive","Slow Burn Negative"], selected: "None" %>
+	
+	<%= f.button :submit, 'Add Assesment'%>
+	
+	</div>
+	</div>
+	<% end %>
+	</div>

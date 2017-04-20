@@ -2,7 +2,7 @@
 <div class="CSSTableGenerator">
 
 <table>
-<tr><td>No.</td><td>&nbspTitle</td><td>Has Image?</td><td>Categories</td><td>Archived</td><td>Due Date</td></tr>
+<tr><td>No.</td><td>&nbspTitle</td><td>Has Image?</td><td>Categories</td><td>Archived</td><td>Due Date</td><td>Draft</td><td>Assessed</td></tr>
 <% @issue.each do |issue| %>
 <tr>
 <td><%=issue.id%></td>
@@ -16,6 +16,8 @@
 <td><% @issuecats = issue.issuecats %><% @issuecats.each_with_index do |issuecat, index| %><%= link_to issuecat.issuecatname, issuecat_path(issuecat.id)%><% if index == @issuecats.size-1 %><% else %>,&nbsp<% end %><% end %></td>
 
 <td><%= issue.archive %></td><td><%= issue.datedue %></td>
+<td><% if issue.draft == false %>DRAFT<% else %><% end %></td>
+<td><% @assess = Assessment.where("issue_id = ?", issue.id).count %><% @subcat = issue.issuecats.count %><% if @assess < @subcat %><%= link_to "NO", new_issue_assessment_path(issue.id) %><% else %>YES<%end%></td>
 </tr>
 <% end %>
 </table>

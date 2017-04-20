@@ -12,7 +12,7 @@ $(document).ready(function() {
     theme: "bootstrap"
 });
 
- 
+  
   
 });
 </script>
@@ -23,17 +23,18 @@ $(document).ready(function() {
  
  <h3>Issue</h3>
  <h4><%= @issue.issuetitle %></h4>
+ <h4><%= Issuecat.find(@assessment.subcat_id).issuecatname %></h4>
 <%= simple_form_for [@issue, @assessment] do |f| %>
 	<div class="modal-body row">
 	<div class="col-md-4">
-	<%= f.input :magnitude, collection: ["None","Positive","Negative","Slow Burn Positive","Slow Burn Negative"], prompt: "Choose" %>
+	<%= f.input :timing, collection: ["None","Positive","Negative","Slow Burn Positive","Slow Burn Negative"], prompt: "Choose" %>
 	</div>
 	<div class="col-md-4">
 	<%= f.input :magnitude, collection: ["None","Positive","Negative","Slow Burn Positive","Slow Burn Negative"], prompt: "Choose" %>
 	</div>
 	<div class="col-md-4">
 	<%= f.input :certainty, collection: ["None","Positive","Negative","Slow Burn Positive","Slow Burn Negative"], prompt: "Choose" %>
-	<%= f.button :submit, 'Add Assesment'%>
+	<%= f.button :submit, 'Edit Assesment'%>
 	</div>
 	</div>
 	<% end %>

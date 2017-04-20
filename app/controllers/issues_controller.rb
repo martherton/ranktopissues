@@ -99,6 +99,8 @@ class IssuesController < ApplicationController
 		@issue = Issue.find(params[:id])
 		@comments = @issue.comments.all
 		@sources = @issue.sources.all
+		@assessments = @issue.assessments.all
+
 		
 	end	
 

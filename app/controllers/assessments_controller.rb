@@ -10,7 +10,7 @@ class AssessmentsController < ApplicationController
 					@test = Assessment.where("subcat_id = ? and issue_id = ?", s.id, @issue.id).count
 					if @test < 1
 						@subcats << s
-					else
+					else 
 					end
 
 			  end
@@ -33,6 +33,39 @@ class AssessmentsController < ApplicationController
   		redirect_to root_path
   	end		
   end
+
+  def edit
+  	if current_user.admin?
+  		@issue = Issue.find(params[:issue_id])
+  		@assessment = @issue.assessments.find(params[:id])
+  	else
+  		redirect_to root_path
+  	end		
+  end
+  
+  def update
+  	if current_user.admin?
+		
+	    
+	    @issue = Issue.find(params[:issue_id])
+	    @assessment = @issue.assessments.find(params[:id])
+	    
+	    if @assessment.update_attributes(assessment_params)
+	        flash[:success] = "Your Topic was updated"
+	        redirect_to issue_path(@issue)
+	    else
+	      flash[:error] = "Oops. There has been a problem, please retry."
+	      render :edit
+	    end
+	  else
+			redirect_to	root_path
+		end	  
+  end
+
+  def index
+  	@assessments = Assessment.all
+
+  end	
 
   private
 

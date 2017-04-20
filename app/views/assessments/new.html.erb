@@ -23,7 +23,7 @@ $(document).ready(function() {
  
  <h3>Issue</h3>
  <h4><%= @issue.issuetitle %></h4>
- <%=@assessment [1]%>
+ 
 <%= simple_form_for [@issue, @assessment] do |f| %>
 	<%= f.input :subcat_id, collection: @subcats, value_method: :id, label_method: :issuecatname, label: false, prompt: "Category being assessed" %>
 	<div class="modal-body row">
@@ -35,6 +35,7 @@ $(document).ready(function() {
 	</div>
 	<div class="col-md-4">
 	<%= f.input :certainty, collection: ["None","Positive","Negative","Slow Burn Positive","Slow Burn Negative"], selected: "None" %>
+	<%= f.input :user_id, input_html: { value: current_user.id}, as: :hidden %>
 	
 	<%= f.button :submit, 'Add Assesment'%>
 	

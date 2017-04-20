@@ -9,7 +9,8 @@ class User < ActiveRecord::Base
   has_many :requests
 
   before_create :send_notification
- 
+  validates :email, uniqueness: true
+  validates :commentname, uniquenss: true, allow_blank: true
 
   def send_notification
     UserMail.notifysend.deliver

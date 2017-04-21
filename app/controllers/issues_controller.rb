@@ -11,7 +11,7 @@ class IssuesController < ApplicationController
 	end
 
 	def feed
-		@issuetweet= Issue.all.order("created_at").limit(10)
+		@issuetweet= Issue.all.order("created_at DESC").limit(10)
 		respond_to do |format|
       format.rss { render :layout => false }
     end

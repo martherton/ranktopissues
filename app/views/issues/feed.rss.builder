@@ -14,7 +14,7 @@ xml.rss :version => '2.0' do
         category = Issuecat.find(issue.subcategory).issuecatname
       end
       xml.item do
-        xml.title "#{issue.issuetitle} | #{category}"
+        xml.title "#{issue.issuetitle} | #{category}. See the LR Research short view."
  
         # choose description based on social media platform
         # uses custom functions on models, they might be better

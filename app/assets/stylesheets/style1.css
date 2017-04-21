@@ -464,7 +464,7 @@
 
 /* Modal Content/Box */
 .modal-content {
-    background-color: #fefefe;
+    background-color: #f0f9ff;
     margin: 15% auto; /* 15% from the top and centered */
     padding: 20px;
     border: 1px solid #888;
@@ -488,4 +488,15 @@
 
 .explain {
 	text-align: right;
+}
+
+#myBtn {
+    background-color: #82cffa; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
 }

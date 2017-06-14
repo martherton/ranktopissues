@@ -9,7 +9,7 @@
         <span class="icon-bar"></span>
       </button>
       <ul class="nav navbar-nav">
-      <% if user_signed_in? %><li class="navbar-brand topnav"><%= current_user.first_name%>,&nbspwelcome to&nbsp</li><li class="navbar-brand"><h4><%= link_to "FMI", root_path, :id => "fmibrand" %></h4></li><% else %><li class="navbar-brand topnav"><h4><%= link_to "FMI", root_path, :id => "fmibrand" %></h4></li><%end%>
+      <% if user_signed_in? %><li class="navbar-brand topnav"><%= current_user.first_name%>,&nbspwelcome to&nbsp</li><li class="navbar-brand"><h4><%= link_to "GMF", root_path, :id => "fmibrand" %></h4></li><% else %><li class="navbar-brand topnav"><h4><%= link_to "GMF", root_path, :id => "fmibrand" %></h4></li><%end%>
       </ul>
     </div>
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">

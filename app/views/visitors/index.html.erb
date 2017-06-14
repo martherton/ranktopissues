@@ -10,7 +10,7 @@
                 <span class="icon-bar"></span>
             </button>
             <ul class="nav navbar-nav">
-      <% if user_signed_in? %><li class="navbar-brand topnav"><%= current_user.first_name%>,&nbspwelcome to&nbsp</li><li class="navbar-brand"><h4><%= link_to "FMI", root_path, :id => "fmibrand" %></h4></li><% else %><li class="navbar-brand topnav"><h4><%= link_to "FMI", root_path, :id => "fmibrand" %></h4></li><%end%>
+      <% if user_signed_in? %><li class="navbar-brand topnav"><%= current_user.first_name%>,&nbspwelcome to&nbsp</li><li class="navbar-brand"><h4><%= link_to "GMF", root_path, :id => "fmibrand" %></h4></li><% else %><li class="navbar-brand topnav"><h4><%= link_to "GMF", root_path, :id => "fmibrand" %></h4></li><%end%>
       </ul>
           </div>
         
@@ -50,7 +50,7 @@
           
           <div class="container">
             <div class="carousel-caption">
-              <h1>Financial Market Issues</h1>
+              <h1>Global Market Factors</h1>
               <p>Live lists identifying the key issues for financial markets.  Including macroeconomic and Political Issues.</p>
               <p><% if user_signed_in? %><% else %><%= link_to "Sign up Today", new_user_registration_path, class: "btn btn-lg btn-primary", role: "button"%><% end %></p>
             </div>
@@ -60,7 +60,7 @@
           <%= image_tag "carou2.jpg", class: "first_slide" %>
           <div class="container">
             <div class="carousel-caption">
-              <h1>Financial Market Issues</h1>
+              <h1>Global Market Factors</h1>
               <p>Sectoral and broader thematic issues.  Access is free, allowing you to view lists and comment on list items.</p>
               <p><% if user_signed_in? %><% else %><%= link_to "Sign up Today", new_user_registration_path, class: "btn btn-lg btn-primary", role: "button"%><% end %></p>
             </div>
@@ -70,7 +70,7 @@
           <%= image_tag "carou3.jpg", class: "first_slide" %>
           <div class="container">
             <div class="carousel-caption">
-              <h1>Financial Market Issues</h1>
+              <h1>Global Market Factors</h1>
               <p>Company level issue lists allow investors to rapidly identify the market moving information they should be monitoring.</p>
               <p><% if user_signed_in? %><% else %><%= link_to "Sign up Today", new_user_registration_path, class: "btn btn-lg btn-primary", role: "button"%><% end %></p>
             </div>

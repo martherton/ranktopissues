@@ -1,5 +1,5 @@
 class ApplicationMailer < ActionMailer::Base
-  default from: "info@marketissues.com"
+  default from: "info@globalmarketfactors.com"
   layout 'mailer'
    before_filter :add_inline_attachments!
 

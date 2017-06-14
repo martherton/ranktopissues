@@ -80,7 +80,7 @@ Rails.application.configure do
     password: ENV["MAIL_PASSWORD"] 
   }
   # ActionMailer Config
-  config.action_mailer.default_url_options = { :host => 'marketissues.com' }
+  config.action_mailer.default_url_options = { :host => 'globalmarketfactors.com' }
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.perform_deliveries = true
   config.action_mailer.raise_delivery_errors = false

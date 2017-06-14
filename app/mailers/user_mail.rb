@@ -1,5 +1,5 @@
 class UserMail < ActionMailer::Base
-	default from: "requests@marketissues.com"
+	default from: "requests@globalmarketfactors.com"
 	
 
 	def requestsend(request)

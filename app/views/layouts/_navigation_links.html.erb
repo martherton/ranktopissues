@@ -5,6 +5,10 @@
   
   
     <li><%= link_to "View lists", issuecats_path %></li>
+    <% if current_user.admin? %>
+    <li class="addthings"><button type="button" class="btn btn-secondary"><%= link_to "Create Category", new_issuecat_path %></button></li>
+    <li class="addthings" ><button type="button" class="btn btn-secondary"><%= link_to "Create Issue", new_issue_path %></button></li>
+    <% end %>
     <li class=\"dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Admin
         <span class="caret"></span></a>
     <ul class="dropdown-menu">

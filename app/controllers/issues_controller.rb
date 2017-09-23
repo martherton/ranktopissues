@@ -78,7 +78,7 @@ class IssuesController < ApplicationController
 	    
 	    if @issue.update_attributes(issue_params)
 	        flash[:success] = "Your Topic was updated"
-	        redirect_to issue_path(params[:id])
+	        redirect_to root_path
 	    else
 	      flash[:error] = "Oops. There has been a problem, please retry."
 	      render :edit

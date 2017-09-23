@@ -52,7 +52,7 @@ $(document).ready(function() {
 		<th>Issue</th><th>List membership</th>
 		</tr>
 		
-		<% @issues.each do |issue| %>
+		<% @issues.reverse_each do |issue| %>
 		
 		<tr>
 		<td><%= link_to issue.issuetitle, issue_path(issue) %></td>
